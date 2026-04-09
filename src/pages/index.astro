@@ -9,7 +9,7 @@ import { TESTIMONIALS } from '../data/testimonials';
 const previewImages = GALLERY_IMAGES.slice(0, 6);
 ---
 
-<BaseLayout title={SEO.home.title} description={SEO.home.description}>
+<BaseLayout title={SEO.home.title} description={SEO.home.description} preloadImage="/images/hero/home-hero.jpg">
   <!-- Hero -->
   <HeroSection
     title="Ihre Hochzeit. Unsere Leidenschaft."
@@ -20,18 +20,19 @@ const previewImages = GALLERY_IMAGES.slice(0, 6);
   />
 
   <!-- Highlights -->
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-24 lg:py-32 bg-white">
     <div class="mx-auto max-w-7xl px-6">
-      <div class="text-center mb-16" data-animate>
+      <div class="text-center mb-20" data-animate>
+        <div class="section-divider mb-8"></div>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-balance">
           Warum Pose and Say Cheese?
         </h2>
-        <p class="mt-4 text-lg text-neutral-500 font-light max-w-2xl mx-auto">
+        <p class="mt-6 text-lg text-neutral-500 font-light max-w-2xl mx-auto">
           Jede Hochzeit ist einzigartig — und verdient Bilder, die das widerspiegeln.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-16" data-stagger>
         <div class="text-center" data-animate>
           <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-neutral-200">
             <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,31 +112,42 @@ const previewImages = GALLERY_IMAGES.slice(0, 6);
   </section>
 
   <!-- Testimonials -->
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-24 lg:py-32 bg-warm-cream">
     <div class="mx-auto max-w-7xl px-6">
-      <div class="text-center mb-16" data-animate>
+      <div class="text-center mb-6" data-animate>
+        <div class="section-divider mb-8"></div>
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
           Was unsere Paare sagen
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-        {TESTIMONIALS.map((t) => (
-          <div class="text-center" data-animate>
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden bg-neutral-200">
-              <img
-                src={t.image}
-                alt={t.name}
-                width="80"
-                height="80"
-                loading="lazy"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <blockquote class="text-sm text-neutral-600 leading-relaxed italic">
-              "{t.text}"
+      <!-- Featured testimonial -->
+      <div class="max-w-3xl mx-auto text-center mb-16 mt-12" data-animate>
+        <span class="font-serif text-6xl lg:text-7xl text-accent leading-none" aria-hidden="true">&ldquo;</span>
+        <blockquote class="font-serif text-xl sm:text-2xl lg:text-3xl text-neutral-800 leading-relaxed italic -mt-6">
+          {TESTIMONIALS[0].text}
+        </blockquote>
+        <div class="mt-8 flex items-center justify-center gap-4">
+          <div class="w-14 h-14 rounded-full overflow-hidden bg-neutral-200">
+            <img src={TESTIMONIALS[0].image} alt={TESTIMONIALS[0].name} width="56" height="56" loading="lazy" class="w-full h-full object-cover" />
+          </div>
+          <cite class="text-sm font-semibold not-italic tracking-wide">{TESTIMONIALS[0].name}</cite>
+        </div>
+      </div>
+
+      <!-- Other testimonials -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto" data-stagger>
+        {TESTIMONIALS.slice(1).map((t) => (
+          <div class="text-center p-8 bg-white/70 animate-fade-in-up" data-animate>
+            <blockquote class="font-serif text-base text-neutral-600 leading-relaxed italic">
+              &ldquo;{t.text}&rdquo;
             </blockquote>
-            <cite class="mt-4 block text-sm font-semibold not-italic">{t.name}</cite>
+            <div class="mt-6 flex items-center justify-center gap-3">
+              <div class="w-10 h-10 rounded-full overflow-hidden bg-neutral-200">
+                <img src={t.image} alt={t.name} width="40" height="40" loading="lazy" class="w-full h-full object-cover" />
+              </div>
+              <cite class="text-sm font-semibold not-italic">{t.name}</cite>
+            </div>
           </div>
         ))}
       </div>

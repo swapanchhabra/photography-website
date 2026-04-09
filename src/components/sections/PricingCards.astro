@@ -6,10 +6,10 @@ import { PACKAGES } from '../../data/packages';
   {PACKAGES.map((pkg) => (
     <div
       class:list={[
-        'relative flex flex-col p-8 lg:p-10 transition-all duration-300 hover:-translate-y-1',
+        'relative flex flex-col p-8 lg:p-10 transition-all duration-500 hover:-translate-y-2',
         pkg.highlighted
-          ? 'bg-neutral-950 text-white ring-2 ring-accent'
-          : 'bg-white text-neutral-900 border border-neutral-200',
+          ? 'bg-neutral-950 text-white ring-2 ring-accent shadow-2xl scale-[1.02] lg:scale-105'
+          : 'bg-white text-neutral-900 border border-neutral-200 hover:shadow-xl',
       ]}
       data-animate
     >
@@ -18,7 +18,7 @@ import { PACKAGES } from '../../data/packages';
           Beliebt
         </span>
       )}
-      <h3 class="text-2xl font-bold tracking-tight">{pkg.name}</h3>
+      <h3 class="text-2xl font-serif font-bold tracking-tight">{pkg.name}</h3>
       <p class="mt-2 text-3xl font-bold tracking-tight">
         {pkg.price}
       </p>

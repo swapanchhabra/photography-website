@@ -1,4 +1,5 @@
 import { SITE } from './constants';
+import { TESTIMONIALS } from '../data/testimonials';
 
 export function localBusinessSchema() {
   return {
@@ -23,10 +24,54 @@ export function localBusinessSchema() {
       latitude: SITE.geo.latitude,
       longitude: SITE.geo.longitude,
     },
-    areaServed: ['Karlsruhe', 'Ettlingen', 'Baden-Württemberg'],
+    areaServed: [
+      { '@type': 'City', name: 'Karlsruhe' },
+      { '@type': 'City', name: 'Ettlingen' },
+      { '@type': 'State', name: 'Baden-Württemberg' },
+    ],
     priceRange: '$$',
     image: `${SITE.url}/og-image.jpg`,
     sameAs: [SITE.social.instagram, SITE.social.facebook],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Hochzeitsfotografie Pakete',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          name: 'Basis-Paket',
+          description: 'Bis zu 4 Stunden Begleitung, 200+ bearbeitete Fotos',
+          priceCurrency: 'EUR',
+          price: '1200',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Premium-Paket',
+          description: 'Bis zu 8 Stunden Begleitung, 400+ bearbeitete Fotos, Hochzeitsalbum',
+          priceCurrency: 'EUR',
+          price: '2200',
+        },
+        {
+          '@type': 'Offer',
+          name: 'Deluxe-Paket',
+          description: 'Ganztägige Begleitung, 600+ bearbeitete Fotos, Premium-Album, Second Photographer',
+          priceCurrency: 'EUR',
+          price: '3500',
+        },
+      ],
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: String(TESTIMONIALS.length),
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: TESTIMONIALS.map((t) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: t.name },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: t.text,
+    })),
   };
 }
 

@@ -2,30 +2,33 @@
 import { NAV_ITEMS, SITE } from '../../utils/constants';
 
 const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
 <header
   id="header"
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
 >
-  <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
+  <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between" aria-label="Hauptnavigation">
     <!-- Logo -->
     <a href="/" class="text-xl font-bold tracking-tight text-white transition-colors duration-300" id="logo-link">
       {SITE.name}
     </a>
 
     <!-- Desktop Navigation -->
-    <ul class="hidden lg:flex items-center gap-8">
+    <ul class="hidden lg:flex items-center gap-8" role="list">
       {NAV_ITEMS.map((item) => (
         <li>
           <a
             href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
               'relative text-sm font-medium tracking-wide uppercase transition-colors duration-300',
               'after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] after:bg-current after:transition-all after:duration-300',
-              currentPath === item.href
+              isActive(item.href)
                 ? 'text-white after:w-full'
-                : 'text-white/70 hover:text-white after:w-0 hover:after:w-full',
+                : 'text-white/80 hover:text-white after:w-0 hover:after:w-full',
             ]}
           >
             {item.label}
@@ -40,6 +43,7 @@ const currentPath = Astro.url.pathname;
       class="lg:hidden flex flex-col gap-1.5 p-2 z-50"
       aria-label="Menü öffnen"
       aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center" id="bar1"></span>
       <span class="block w-6 h-[2px] bg-white transition-all duration-300" id="bar2"></span>
@@ -50,19 +54,28 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile Menu Overlay -->
   <div
     id="mobile-menu"
+    role="dialog"
+    aria-label="Navigation"
     class="fixed inset-0 bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden"
   >
-    {NAV_ITEMS.map((item) => (
-      <a
-        href={item.href}
-        class:list={[
-          'text-2xl font-light tracking-widest uppercase transition-colors duration-300',
-          currentPath === item.href ? 'text-accent' : 'text-white/80 hover:text-white',
-        ]}
-      >
-        {item.label}
-      </a>
-    ))}
+    <nav aria-label="Mobile Navigation">
+      <ul class="flex flex-col items-center gap-8" role="list">
+        {NAV_ITEMS.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class:list={[
+                'text-2xl font-light tracking-widest uppercase transition-colors duration-300',
+                isActive(item.href) ? 'text-accent' : 'text-white/90 hover:text-white',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </div>
 </header>
 
@@ -76,6 +89,31 @@ const currentPath = Astro.url.pathname;
   const logoLink = document.getElementById('logo-link')!;
   let isOpen = false;
 
+  function toggleMenu(open: boolean) {
+    isOpen = open;
+    btn.setAttribute('aria-expanded', String(isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
+    if (isOpen) {
+      menu.classList.remove('opacity-0', 'pointer-events-none');
+      menu.classList.add('opacity-100', 'pointer-events-auto');
+      bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+      bar2.style.opacity = '0';
+      bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+      document.body.style.overflow = 'hidden';
+      // Focus first menu link
+      const firstLink = menu.querySelector('a');
+      if (firstLink) firstLink.focus();
+    } else {
+      menu.classList.add('opacity-0', 'pointer-events-none');
+      menu.classList.remove('opacity-100', 'pointer-events-auto');
+      bar1.style.transform = '';
+      bar2.style.opacity = '';
+      bar3.style.transform = '';
+      document.body.style.overflow = '';
+      btn.focus();
+    }
+  }
+
   // Scroll effect — add background after scrolling
   function updateHeader() {
     if (window.scrollY > 50) {
@@ -83,8 +121,8 @@ const currentPath = Astro.url.pathname;
       header.classList.remove('bg-transparent');
       logoLink.classList.remove('text-white');
       logoLink.classList.add('text-neutral-900');
-      header.querySelectorAll('nav a:not(#logo-link)').forEach((a) => {
-        a.classList.remove('text-white/70', 'text-white');
+      header.querySelectorAll<HTMLAnchorElement>('nav ul a').forEach((a) => {
+        a.classList.remove('text-white/80', 'text-white');
         a.classList.add('text-neutral-600', 'hover:text-neutral-900');
       });
       [bar1, bar2, bar3].forEach((b) => {
@@ -96,8 +134,8 @@ const currentPath = Astro.url.pathname;
       header.classList.add('bg-transparent');
       logoLink.classList.add('text-white');
       logoLink.classList.remove('text-neutral-900');
-      header.querySelectorAll('nav a:not(#logo-link)').forEach((a) => {
-        a.classList.add('text-white/70');
+      header.querySelectorAll<HTMLAnchorElement>('nav ul a').forEach((a) => {
+        a.classList.add('text-white/80');
         a.classList.remove('text-neutral-600', 'hover:text-neutral-900');
       });
       [bar1, bar2, bar3].forEach((b) => {
@@ -110,24 +148,12 @@ const currentPath = Astro.url.pathname;
   window.addEventListener('scroll', updateHeader, { passive: true });
   updateHeader();
 
-  // Mobile menu toggle
-  btn.addEventListener('click', () => {
-    isOpen = !isOpen;
-    btn.setAttribute('aria-expanded', String(isOpen));
-    if (isOpen) {
-      menu.classList.remove('opacity-0', 'pointer-events-none');
-      menu.classList.add('opacity-100', 'pointer-events-auto');
-      bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
-      bar2.style.opacity = '0';
-      bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
-      document.body.style.overflow = 'hidden';
-    } else {
-      menu.classList.add('opacity-0', 'pointer-events-none');
-      menu.classList.remove('opacity-100', 'pointer-events-auto');
-      bar1.style.transform = '';
-      bar2.style.opacity = '';
-      bar3.style.transform = '';
-      document.body.style.overflow = '';
+  btn.addEventListener('click', () => toggleMenu(!isOpen));
+
+  // Escape key closes mobile menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) {
+      toggleMenu(false);
     }
   });
 </script>

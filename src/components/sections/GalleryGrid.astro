@@ -18,15 +18,17 @@ const categories = [
 
 <div>
   {showFilter && (
-    <div class="flex flex-wrap justify-center gap-3 mb-12" id="gallery-filter">
+    <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12" id="gallery-filter" role="group" aria-label="Galerie filtern">
       {categories.map((cat) => (
         <button
+          type="button"
           data-filter={cat.value}
+          aria-pressed={cat.value === 'alle' ? 'true' : 'false'}
           class:list={[
-            'px-5 py-2 text-sm font-medium tracking-wide uppercase transition-all duration-300 border',
+            'px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium tracking-wide uppercase transition-all duration-300 border min-h-[44px]',
             cat.value === 'alle'
               ? 'bg-neutral-900 text-white border-neutral-900'
-              : 'bg-transparent text-neutral-500 border-neutral-300 hover:border-neutral-900 hover:text-neutral-900',
+              : 'bg-transparent text-neutral-600 border-neutral-300 hover:border-neutral-900 hover:text-neutral-900',
           ]}
         >
           {cat.label}
@@ -35,11 +37,13 @@ const categories = [
     </div>
   )}
 
-  <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4" id="gallery-grid">
-    {images.map((img) => (
+  <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4" id="gallery-grid" role="list" aria-label="Hochzeitsfotos">
+    {images.map((img, index) => (
       <div
-        class="break-inside-avoid group cursor-pointer overflow-hidden"
+        class="break-inside-avoid group overflow-hidden cursor-pointer"
         data-category={img.category}
+        data-lightbox-index={index}
+        role="listitem"
       >
         <div class="relative overflow-hidden">
           <img
@@ -51,38 +55,178 @@ const categories = [
             decoding="async"
             class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center" aria-hidden="true">
+            <svg class="w-10 h-10 text-white opacity-0 group-hover:opacity-80 transition-opacity duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+          </div>
         </div>
       </div>
     ))}
   </div>
 </div>
 
-{showFilter && (
-  <script>
-    const filterBtns = document.querySelectorAll('#gallery-filter button');
-    const items = document.querySelectorAll('#gallery-grid [data-category]');
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-[200] bg-black/95 hidden items-center justify-center" role="dialog" aria-label="Bildansicht" aria-modal="true">
+  <!-- Close button -->
+  <button id="lb-close" class="absolute top-4 right-4 z-10 p-3 text-white/70 hover:text-white transition-colors" aria-label="Schließen">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
 
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
+  <!-- Prev button -->
+  <button id="lb-prev" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-10 p-3 text-white/70 hover:text-white transition-colors" aria-label="Vorheriges Bild">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
 
-        filterBtns.forEach((b) => {
-          b.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
-          b.classList.add('bg-transparent', 'text-neutral-500', 'border-neutral-300');
-        });
-        btn.classList.add('bg-neutral-900', 'text-white', 'border-neutral-900');
-        btn.classList.remove('bg-transparent', 'text-neutral-500', 'border-neutral-300');
+  <!-- Next button -->
+  <button id="lb-next" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-10 p-3 text-white/70 hover:text-white transition-colors" aria-label="Nächstes Bild">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
 
-        items.forEach((item) => {
-          const el = item as HTMLElement;
-          if (filter === 'alle' || item.getAttribute('data-category') === filter) {
-            el.style.display = '';
-          } else {
-            el.style.display = 'none';
-          }
-        });
+  <!-- Image container -->
+  <div class="flex items-center justify-center w-full h-full px-12 sm:px-20 py-16">
+    <img id="lb-img" src="" alt="" class="max-w-full max-h-full object-contain transition-opacity duration-300" />
+  </div>
+
+  <!-- Counter -->
+  <div id="lb-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-sm font-light tracking-widest"></div>
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox')!;
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCounter = document.getElementById('lb-counter')!;
+  const lbClose = document.getElementById('lb-close')!;
+  const lbPrev = document.getElementById('lb-prev')!;
+  const lbNext = document.getElementById('lb-next')!;
+  const galleryItems = document.querySelectorAll<HTMLElement>('#gallery-grid [data-lightbox-index]');
+
+  let currentIndex = 0;
+  let touchStartX = 0;
+
+  // Build image list from visible items
+  function getVisibleImages(): { src: string; alt: string }[] {
+    const visible: { src: string; alt: string }[] = [];
+    galleryItems.forEach((item) => {
+      if (item.style.display !== 'none') {
+        const img = item.querySelector('img');
+        if (img) visible.push({ src: img.src, alt: img.alt });
+      }
+    });
+    return visible;
+  }
+
+  function showImage(index: number) {
+    const images = getVisibleImages();
+    if (index < 0 || index >= images.length) return;
+    currentIndex = index;
+    lbImg.style.opacity = '0';
+    setTimeout(() => {
+      lbImg.src = images[index].src;
+      lbImg.alt = images[index].alt;
+      lbCounter.textContent = `${index + 1} / ${images.length}`;
+      lbImg.style.opacity = '1';
+    }, 150);
+  }
+
+  function openLightbox(index: number) {
+    currentIndex = index;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    showImage(index);
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // Click handlers for gallery items
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      // Find visible index of this item
+      const images = getVisibleImages();
+      const img = item.querySelector('img');
+      if (!img) return;
+      const idx = images.findIndex((i) => i.src === img.src);
+      if (idx >= 0) openLightbox(idx);
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => {
+    const images = getVisibleImages();
+    showImage((currentIndex - 1 + images.length) % images.length);
+  });
+  lbNext.addEventListener('click', () => {
+    const images = getVisibleImages();
+    showImage((currentIndex + 1) % images.length);
+  });
+
+  // Click backdrop to close
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || (e.target as HTMLElement).id === 'lb-img') {
+      // Only close if clicking the backdrop, not buttons
+      const el = e.target as HTMLElement;
+      if (el === lightbox) closeLightbox();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('hidden')) return;
+    const images = getVisibleImages();
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage((currentIndex - 1 + images.length) % images.length);
+    if (e.key === 'ArrowRight') showImage((currentIndex + 1) % images.length);
+  });
+
+  // Touch swipe support
+  lightbox.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    const images = getVisibleImages();
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) showImage((currentIndex + 1) % images.length);
+      else showImage((currentIndex - 1 + images.length) % images.length);
+    }
+  });
+
+  // Gallery filter integration
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('#gallery-filter button');
+  const items = document.querySelectorAll<HTMLElement>('#gallery-grid [data-category]');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      filterBtns.forEach((b) => {
+        b.setAttribute('aria-pressed', 'false');
+        b.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
+        b.classList.add('bg-transparent', 'text-neutral-600', 'border-neutral-300');
+      });
+      btn.setAttribute('aria-pressed', 'true');
+      btn.classList.add('bg-neutral-900', 'text-white', 'border-neutral-900');
+      btn.classList.remove('bg-transparent', 'text-neutral-600', 'border-neutral-300');
+
+      items.forEach((el) => {
+        if (filter === 'alle' || el.getAttribute('data-category') === filter) {
+          el.style.display = '';
+        } else {
+          el.style.display = 'none';
+        }
       });
     });
-  </script>
-)}
+  });
+</script>
