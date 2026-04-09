@@ -15,7 +15,8 @@ export const SITE = {
     longitude: 8.4075,
   },
   social: {
-    instagram: 'https://instagram.com/poseandsaycheese',
+    instagram: 'https://www.instagram.com/pose_n_say_cheese/',
+    instagramHandle: '@pose_n_say_cheese',
     facebook: 'https://facebook.com/poseandsaycheese',
   },
 } as const;

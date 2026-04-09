@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/sections/HeroSection.astro';
 import CTABanner from '../components/sections/CTABanner.astro';
+import InstagramFeed from '../components/sections/InstagramFeed.astro';
 import { SEO } from '../data/seo';
 import { GALLERY_IMAGES } from '../data/gallery';
 import { TESTIMONIALS } from '../data/testimonials';
@@ -153,6 +154,9 @@ const previewImages = GALLERY_IMAGES.slice(0, 6);
       </div>
     </div>
   </section>
+
+  <!-- Instagram -->
+  <InstagramFeed />
 
   <!-- CTA -->
   <CTABanner
