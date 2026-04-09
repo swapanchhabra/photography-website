@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import GalleryGrid from '../components/sections/GalleryGrid.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { SEO } from '../data/seo';
+import { GALLERY_IMAGES } from '../data/gallery';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Galerie', url: `${SITE.url}/galerie` },
+]);
+---
+
+<BaseLayout title={SEO.galerie.title} description={SEO.galerie.description} schema={schema}>
+  <HeroSection
+    title="Galerie"
+    subtitle="Lassen Sie sich von echten Hochzeitsmomenten inspirieren."
+    image="/images/hero/gallery-hero.jpg"
+  />
+
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-7xl px-6">
+      <GalleryGrid images={GALLERY_IMAGES} showFilter />
+    </div>
+  </section>
+
+  <CTABanner
+    title="Gefällt Ihnen, was Sie sehen?"
+    subtitle="Lassen Sie uns gemeinsam Ihre eigene Hochzeitsgeschichte erzählen."
+    buttonLabel="Jetzt anfragen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>

@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { SEO } from '../data/seo';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Leistungen', url: `${SITE.url}/leistungen` },
+]);
+
+const services = [
+  {
+    title: 'Getting Ready',
+    description: 'Die aufregenden Vorbereitungen — vom Styling bis zum letzten Handgriff. Ich halte die Vorfreude, die Emotionen und die kleinen Details fest, die den Anfang Ihres großen Tages ausmachen.',
+    icon: 'sparkles',
+  },
+  {
+    title: 'Trauung',
+    description: 'Ob standesamtlich, kirchlich oder freie Trauung — ich dokumentiere die Zeremonie diskret und einfühlsam. Jeder Blick, jede Träne, jedes Lächeln wird festgehalten.',
+    icon: 'rings',
+  },
+  {
+    title: 'Brautpaarshooting',
+    description: 'Nach der Trauung nehmen wir uns Zeit für entspannte Paarfotos. An Ihrem Wunschort entstehen natürliche, romantische Bilder voller Emotionen.',
+    icon: 'heart',
+  },
+  {
+    title: 'Gruppenfotos',
+    description: 'Schnell, unkompliziert und mit guter Laune — professionelle Gruppenfotos mit Familie und Freunden, die Spaß machen.',
+    icon: 'people',
+  },
+  {
+    title: 'Feier & Party',
+    description: 'Der erste Tanz, die Reden, das Lachen — ich bin bis zum Schluss dabei und fange die ausgelassene Stimmung Ihrer Feier ein.',
+    icon: 'party',
+  },
+  {
+    title: 'Hochzeitsalbum',
+    description: 'Auf Wunsch gestalte ich ein hochwertiges Hochzeitsalbum, das Ihre schönsten Momente in einem edlen Buch vereint — ein Erbstück für Generationen.',
+    icon: 'book',
+  },
+];
+---
+
+<BaseLayout title={SEO.leistungen.title} description={SEO.leistungen.description} schema={schema}>
+  <HeroSection
+    title="Leistungen"
+    subtitle="Professionelle Hochzeitsfotografie — von den Vorbereitungen bis zur letzten Party."
+    image="/images/hero/services-hero.jpg"
+  />
+
+  <!-- Approach -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-3xl px-6 text-center" data-animate>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Mein Ansatz</h2>
+      <p class="mt-6 text-neutral-500 leading-relaxed">
+        Ich glaube an authentische Fotografie. Keine erzwungenen Posen, keine übertriebene Inszenierung.
+        Stattdessen begleite ich Sie unauffällig durch den Tag und fange die echten Momente ein —
+        die Freudentränen, das herzliche Lachen, die stillen Blicke. So entstehen Bilder,
+        die Ihre Geschichte ehrlich erzählen.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+          Was ich anbiete
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service) => (
+          <div class="bg-white p-8 lg:p-10 border border-neutral-200 transition-all duration-300 hover:border-neutral-400" data-animate>
+            <h3 class="text-xl font-bold tracking-tight">{service.title}</h3>
+            <p class="mt-3 text-sm text-neutral-500 leading-relaxed">{service.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">So läuft es ab</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {[
+          { step: '01', title: 'Anfrage', desc: 'Schreiben Sie mir und erzählen Sie von Ihrer Hochzeit.' },
+          { step: '02', title: 'Kennenlernen', desc: 'Wir treffen uns persönlich und besprechen Ihre Wünsche.' },
+          { step: '03', title: 'Der große Tag', desc: 'Ich begleite Sie und halte alle Momente fest.' },
+          { step: '04', title: 'Ihre Bilder', desc: 'Nach 6–8 Wochen erhalten Sie Ihre fertige Galerie.' },
+        ].map((item) => (
+          <div class="text-center" data-animate>
+            <span class="text-4xl font-bold text-accent">{item.step}</span>
+            <h3 class="mt-3 text-lg font-bold tracking-tight">{item.title}</h3>
+            <p class="mt-2 text-sm text-neutral-500">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Klingt gut?"
+    subtitle="Lassen Sie uns über Ihre Hochzeit sprechen."
+    buttonLabel="Zu den Preisen"
+    buttonHref="/preise"
+  />
+</BaseLayout>

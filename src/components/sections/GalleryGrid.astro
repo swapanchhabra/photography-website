@@ -1,0 +1,88 @@
+---
+import type { GalleryImage } from '../../data/gallery';
+
+interface Props {
+  images: GalleryImage[];
+  showFilter?: boolean;
+}
+
+const { images, showFilter = false } = Astro.props;
+const categories = [
+  { value: 'alle', label: 'Alle' },
+  { value: 'trauung', label: 'Trauung' },
+  { value: 'paarfotos', label: 'Paarfotos' },
+  { value: 'details', label: 'Details' },
+  { value: 'feier', label: 'Feier' },
+];
+---
+
+<div>
+  {showFilter && (
+    <div class="flex flex-wrap justify-center gap-3 mb-12" id="gallery-filter">
+      {categories.map((cat) => (
+        <button
+          data-filter={cat.value}
+          class:list={[
+            'px-5 py-2 text-sm font-medium tracking-wide uppercase transition-all duration-300 border',
+            cat.value === 'alle'
+              ? 'bg-neutral-900 text-white border-neutral-900'
+              : 'bg-transparent text-neutral-500 border-neutral-300 hover:border-neutral-900 hover:text-neutral-900',
+          ]}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4" id="gallery-grid">
+    {images.map((img) => (
+      <div
+        class="break-inside-avoid group cursor-pointer overflow-hidden"
+        data-category={img.category}
+      >
+        <div class="relative overflow-hidden">
+          <img
+            src={img.src}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+{showFilter && (
+  <script>
+    const filterBtns = document.querySelectorAll('#gallery-filter button');
+    const items = document.querySelectorAll('#gallery-grid [data-category]');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
+          b.classList.add('bg-transparent', 'text-neutral-500', 'border-neutral-300');
+        });
+        btn.classList.add('bg-neutral-900', 'text-white', 'border-neutral-900');
+        btn.classList.remove('bg-transparent', 'text-neutral-500', 'border-neutral-300');
+
+        items.forEach((item) => {
+          const el = item as HTMLElement;
+          if (filter === 'alle' || item.getAttribute('data-category') === filter) {
+            el.style.display = '';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+)}

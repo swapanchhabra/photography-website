@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { SEO } from '../data/seo';
+import { FAQ_ITEMS } from '../data/faq';
+import { breadcrumbSchema, faqSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Startseite', url: SITE.url },
+    { name: 'FAQ', url: `${SITE.url}/faq` },
+  ]),
+  faqSchema(FAQ_ITEMS),
+];
+---
+
+<BaseLayout title={SEO.faq.title} description={SEO.faq.description} schema={schemas}>
+  <HeroSection
+    title="Häufige Fragen"
+    subtitle="Alles, was Sie über Ihre Hochzeitsfotografie wissen möchten."
+    image="/images/hero/home-hero.jpg"
+  />
+
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-3xl px-6">
+      <FAQAccordion items={FAQ_ITEMS} grouped />
+    </div>
+  </section>
+
+  <CTABanner
+    title="Noch Fragen?"
+    subtitle="Schreiben Sie mir — ich helfe Ihnen gerne weiter."
+    buttonLabel="Kontakt aufnehmen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>

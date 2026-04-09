@@ -1,0 +1,48 @@
+---
+import type { FAQItem } from '../../data/faq';
+
+interface Props {
+  items: FAQItem[];
+  grouped?: boolean;
+}
+
+const { items, grouped = false } = Astro.props;
+
+const groupedItems = grouped
+  ? items.reduce<Record<string, FAQItem[]>>((acc, item) => {
+      if (!acc[item.category]) acc[item.category] = [];
+      acc[item.category].push(item);
+      return acc;
+    }, {})
+  : { '': items };
+---
+
+<div class="space-y-8">
+  {Object.entries(groupedItems).map(([category, categoryItems]) => (
+    <div>
+      {category && (
+        <h3 class="text-xl font-bold tracking-tight mb-4">{category}</h3>
+      )}
+      <div class="space-y-3">
+        {categoryItems.map((item, index) => (
+          <details class="group border border-neutral-200 transition-all duration-300 hover:border-neutral-400">
+            <summary class="flex items-center justify-between cursor-pointer p-5 lg:p-6 text-left">
+              <span class="font-medium text-sm lg:text-base pr-4">{item.question}</span>
+              <svg
+                class="w-5 h-5 flex-shrink-0 text-neutral-400 transition-transform duration-300 group-open:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 lg:px-6 lg:pb-6">
+              <p class="text-sm text-neutral-600 leading-relaxed">{item.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

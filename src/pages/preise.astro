@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import PricingCards from '../components/sections/PricingCards.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { SEO } from '../data/seo';
+import { FAQ_ITEMS } from '../data/faq';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Preise', url: `${SITE.url}/preise` },
+]);
+
+const pricingFAQ = FAQ_ITEMS.filter((item) => item.category === 'Preise & Zahlung');
+---
+
+<BaseLayout title={SEO.preise.title} description={SEO.preise.description} schema={schema}>
+  <HeroSection
+    title="Preise"
+    subtitle="Transparente Pakete für jeden Hochzeitstag — individuell anpassbar."
+    image="/images/hero/home-hero.jpg"
+  />
+
+  <!-- Pricing Cards -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+          Unsere Pakete
+        </h2>
+        <p class="mt-4 text-lg text-neutral-500 font-light max-w-2xl mx-auto">
+          Wählen Sie das Paket, das zu Ihnen passt — oder lassen Sie sich ein individuelles Angebot erstellen.
+        </p>
+      </div>
+
+      <PricingCards />
+
+      <p class="mt-12 text-center text-sm text-neutral-500 italic" data-animate>
+        Jedes Hochzeitspaar ist einzigartig. Gerne erstelle ich ein maßgeschneidertes Paket nach Ihren Wünschen.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing FAQ -->
+  <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="text-center mb-12" data-animate>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Fragen zu den Preisen</h2>
+      </div>
+      <FAQAccordion items={pricingFAQ} />
+    </div>
+  </section>
+
+  <CTABanner
+    title="Bereit zu buchen?"
+    subtitle="Schreiben Sie mir und sichern Sie sich Ihren Wunschtermin."
+    buttonLabel="Jetzt anfragen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>

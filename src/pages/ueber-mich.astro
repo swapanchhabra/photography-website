@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { SEO } from '../data/seo';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Über mich', url: `${SITE.url}/ueber-mich` },
+]);
+---
+
+<BaseLayout title={SEO.ueberMich.title} description={SEO.ueberMich.description} schema={schema}>
+  <HeroSection
+    title="Über mich"
+    subtitle="Die Person hinter der Kamera."
+    image="/images/hero/about-hero.jpg"
+  />
+
+  <!-- Bio -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="overflow-hidden" data-animate>
+          <img
+            src="/images/about/photographer.jpg"
+            alt="Hochzeitsfotografin Karlsruhe"
+            width="600"
+            height="800"
+            loading="lazy"
+            class="w-full h-auto object-cover"
+          />
+        </div>
+        <div data-animate>
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">
+            Hallo, ich bin die Fotografin hinter Pose and Say Cheese Photography.
+          </h2>
+          <div class="mt-6 space-y-4 text-neutral-600 leading-relaxed">
+            <p>
+              Seit über fünf Jahren begleite ich Paare an ihrem schönsten Tag. Was als
+              Leidenschaft begann, ist heute mein Traumberuf — und jede Hochzeit berührt
+              mich aufs Neue.
+            </p>
+            <p>
+              Ich glaube daran, dass die besten Fotos dann entstehen, wenn man sich wohlfühlt.
+              Deshalb ist es mir besonders wichtig, eine entspannte und vertrauensvolle
+              Atmosphäre zu schaffen. Kein Stress, keine steife Posierung — nur echte Momente.
+            </p>
+            <p>
+              Mein Ziel ist es, Bilder zu schaffen, bei denen Sie jedes Mal aufs Neue die
+              Schmetterlinge im Bauch spüren, wenn Sie sie anschauen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-6 text-center" data-animate>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Meine Philosophie</h2>
+      <div class="mt-8 space-y-4 text-neutral-600 leading-relaxed">
+        <p>
+          Hochzeitsfotografie ist für mich mehr als nur Bilder machen. Es geht darum,
+          Geschichten zu erzählen — Ihre Geschichte. Die leisen Momente genauso wie die
+          lauten. Das Zittern der Hände beim Ringtausch. Die Freudenträne des Vaters.
+          Das ausgelassene Lachen auf der Tanzfläche.
+        </p>
+        <p>
+          Ich arbeite dokumentarisch und unauffällig, damit Sie Ihren Tag in vollen Zügen
+          genießen können. Die schönsten Momente passieren, wenn niemand in die Kamera
+          schaut — und genau diese Momente halte ich fest.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Lernen wir uns kennen?"
+    subtitle="Ich freue mich auf Ihre Nachricht."
+    buttonLabel="Kontakt aufnehmen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Seite nicht gefunden | Pose and Say Cheese Photography" description="Die angeforderte Seite wurde nicht gefunden." noindex>
+  <div class="min-h-screen flex items-center justify-center px-6">
+    <div class="text-center">
+      <span class="text-8xl font-bold text-neutral-200">404</span>
+      <h1 class="mt-4 text-2xl sm:text-3xl font-bold tracking-tight">Seite nicht gefunden</h1>
+      <p class="mt-3 text-neutral-500">Die Seite, die Sie suchen, existiert leider nicht.</p>
+      <a
+        href="/"
+        class="inline-block mt-8 px-8 py-4 bg-neutral-900 text-white text-sm font-semibold uppercase tracking-widest hover:bg-neutral-800 transition-all duration-300"
+      >
+        Zurück zur Startseite
+      </a>
+    </div>
+  </div>
+</BaseLayout>

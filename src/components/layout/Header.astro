@@ -1,0 +1,133 @@
+---
+import { NAV_ITEMS, SITE } from '../../utils/constants';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+>
+  <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="text-xl font-bold tracking-tight text-white transition-colors duration-300" id="logo-link">
+      {SITE.name}
+    </a>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden lg:flex items-center gap-8">
+      {NAV_ITEMS.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'relative text-sm font-medium tracking-wide uppercase transition-colors duration-300',
+              'after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] after:bg-current after:transition-all after:duration-300',
+              currentPath === item.href
+                ? 'text-white after:w-full'
+                : 'text-white/70 hover:text-white after:w-0 hover:after:w-full',
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-btn"
+      class="lg:hidden flex flex-col gap-1.5 p-2 z-50"
+      aria-label="Menü öffnen"
+      aria-expanded="false"
+    >
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center" id="bar1"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center" id="bar3"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden"
+  >
+    {NAV_ITEMS.map((item) => (
+      <a
+        href={item.href}
+        class:list={[
+          'text-2xl font-light tracking-widest uppercase transition-colors duration-300',
+          currentPath === item.href ? 'text-accent' : 'text-white/80 hover:text-white',
+        ]}
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header')!;
+  const btn = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const bar1 = document.getElementById('bar1')!;
+  const bar2 = document.getElementById('bar2')!;
+  const bar3 = document.getElementById('bar3')!;
+  const logoLink = document.getElementById('logo-link')!;
+  let isOpen = false;
+
+  // Scroll effect — add background after scrolling
+  function updateHeader() {
+    if (window.scrollY > 50) {
+      header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
+      header.classList.remove('bg-transparent');
+      logoLink.classList.remove('text-white');
+      logoLink.classList.add('text-neutral-900');
+      header.querySelectorAll('nav a:not(#logo-link)').forEach((a) => {
+        a.classList.remove('text-white/70', 'text-white');
+        a.classList.add('text-neutral-600', 'hover:text-neutral-900');
+      });
+      [bar1, bar2, bar3].forEach((b) => {
+        b.classList.remove('bg-white');
+        b.classList.add('bg-neutral-900');
+      });
+    } else if (!isOpen) {
+      header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
+      header.classList.add('bg-transparent');
+      logoLink.classList.add('text-white');
+      logoLink.classList.remove('text-neutral-900');
+      header.querySelectorAll('nav a:not(#logo-link)').forEach((a) => {
+        a.classList.add('text-white/70');
+        a.classList.remove('text-neutral-600', 'hover:text-neutral-900');
+      });
+      [bar1, bar2, bar3].forEach((b) => {
+        b.classList.add('bg-white');
+        b.classList.remove('bg-neutral-900');
+      });
+    }
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+
+  // Mobile menu toggle
+  btn.addEventListener('click', () => {
+    isOpen = !isOpen;
+    btn.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      menu.classList.remove('opacity-0', 'pointer-events-none');
+      menu.classList.add('opacity-100', 'pointer-events-auto');
+      bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+      bar2.style.opacity = '0';
+      bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+      document.body.style.overflow = 'hidden';
+    } else {
+      menu.classList.add('opacity-0', 'pointer-events-none');
+      menu.classList.remove('opacity-100', 'pointer-events-auto');
+      bar1.style.transform = '';
+      bar2.style.opacity = '';
+      bar3.style.transform = '';
+      document.body.style.overflow = '';
+    }
+  });
+</script>
