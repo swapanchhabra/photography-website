@@ -1,0 +1,86 @@
+---
+import HeroSection from './HeroSection.astro';
+import CTABanner from './CTABanner.astro';
+import { GALLERY_IMAGES } from '../../data/gallery';
+
+interface Props {
+  city: string;
+  heroImage: string;
+  intro: string;
+  locations: { name: string; desc: string }[];
+}
+
+const { city, heroImage, intro, locations } = Astro.props;
+const images = GALLERY_IMAGES.slice(0, 4);
+---
+
+<HeroSection
+  title={`Hochzeitsfotograf ${city}`}
+  subtitle={`Emotionale und authentische Hochzeitsfotografie in ${city} und Umgebung.`}
+  image={heroImage}
+  cta={{ label: 'Jetzt anfragen', href: '/kontakt' }}
+/>
+
+<section class="py-20 lg:py-28 bg-white">
+  <div class="mx-auto max-w-4xl px-6">
+    <div class="text-center mb-16" data-animate>
+      <div class="section-divider mb-8"></div>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">
+        Eure Hochzeit in {city}
+      </h2>
+    </div>
+    <div class="space-y-6 text-neutral-600 leading-relaxed" data-animate set:html={intro} />
+  </div>
+</section>
+
+<section class="py-20 lg:py-28 bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12" data-animate>
+      Hochzeitsfotos aus {city}
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {images.map((img) => (
+        <div class="overflow-hidden group" data-animate>
+          <img
+            src={img.src}
+            alt={`Hochzeitsfoto ${city} — ${img.alt}`}
+            width={img.width}
+            height={img.height}
+            loading="lazy"
+            class="w-full h-64 sm:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-10" data-animate>
+      <a href="/galerie" class="inline-block px-8 py-4 border border-neutral-900 text-neutral-900 text-sm font-semibold uppercase tracking-widest hover:bg-neutral-900 hover:text-white transition-all duration-300">
+        Komplette Galerie ansehen
+      </a>
+    </div>
+  </div>
+</section>
+
+{locations.length > 0 && (
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-4xl px-6">
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12" data-animate>
+        Beliebte Hochzeitslocations in {city}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-animate>
+        {locations.map((loc) => (
+          <div class="p-6 border border-neutral-200">
+            <h3 class="font-bold tracking-tight">{loc.name}</h3>
+            <p class="mt-2 text-sm text-neutral-500">{loc.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<CTABanner
+  title={`Heiratet ihr in ${city}?`}
+  subtitle="Lasst uns über eure Hochzeit sprechen — ich freu mich auf euch!"
+  buttonLabel="Jetzt anfragen"
+  buttonHref="/kontakt"
+/>

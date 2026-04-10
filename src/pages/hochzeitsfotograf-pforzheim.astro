@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationPage from '../components/sections/LocationPage.astro';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Hochzeitsfotograf Pforzheim', url: `${SITE.url}/hochzeitsfotograf-pforzheim` },
+]);
+---
+
+<BaseLayout
+  title="Hochzeitsfotograf Pforzheim — Natürliche Hochzeitsfotografie | Pose and Say Cheese Photography"
+  description="Euer Hochzeitsfotograf in Pforzheim. Authentische Hochzeitsfotos am Enzauenpark, Schloss Neuenbürg und den schönsten Locations am Schwarzwaldrand."
+  schema={schema}
+>
+  <LocationPage
+    city="Pforzheim"
+    heroImage="/images/hero/gallery-hero.jpg"
+    intro={`<p>Pforzheim, die Goldstadt am Eingang zum Schwarzwald, bietet vielfältige Kulissen für eure Hochzeitsfotos. Der <strong>Enzauenpark</strong>, das nahegelegene <strong>Schloss Neuenbürg</strong> und die grüne Umgebung am <strong>Schwarzwaldrand</strong> schaffen perfekte Voraussetzungen für natürliche, emotionale Bilder.</p>
+    <p>Von Ettlingen aus bin ich in nur 25 Minuten bei euch in Pforzheim. Ob eine entspannte Trauung im Grünen oder eine elegante Feier im <strong>CCP</strong> — ich begleite euch und halte jeden Moment fest.</p>`}
+    locations={[
+      { name: 'Enzauenpark', desc: 'Weitläufiger Park mit Wasserspielen — perfekt für entspannte Paarfotos.' },
+      { name: 'Schloss Neuenbürg', desc: 'Historisches Schloss über dem Enztal mit märchenhafter Atmosphäre.' },
+      { name: 'Gasometer Pforzheim', desc: 'Einzigartige Location mit spektakulärem 360°-Panorama.' },
+      { name: 'Wildpark & Schwarzwald', desc: 'Natürliche Waldkulisse für romantische Outdoor-Shootings.' },
+    ]}
+  />
+</BaseLayout>

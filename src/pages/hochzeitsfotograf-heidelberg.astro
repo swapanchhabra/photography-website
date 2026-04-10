@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationPage from '../components/sections/LocationPage.astro';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Hochzeitsfotograf Heidelberg', url: `${SITE.url}/hochzeitsfotograf-heidelberg` },
+]);
+---
+
+<BaseLayout
+  title="Hochzeitsfotograf Heidelberg — Romantische Hochzeitsfotos | Pose and Say Cheese Photography"
+  description="Euer Hochzeitsfotograf in Heidelberg. Authentische Hochzeitsfotografie am Heidelberger Schloss, in der Altstadt und den schönsten Locations am Neckar."
+  schema={schema}
+>
+  <LocationPage
+    city="Heidelberg"
+    heroImage="/images/hero/gallery-hero.jpg"
+    intro={`<p>Heidelberg ist eine der romantischsten Städte Deutschlands — und damit der perfekte Ort für eure Hochzeitsfotos. Das <strong>Heidelberger Schloss</strong> mit seiner einzigartigen Kulisse, die malerische <strong>Altstadt</strong> und der <strong>Philosophenweg</strong> mit Blick über den Neckar bieten unvergessliche Momente.</p>
+    <p>Als eure Hochzeitsfotografin aus Ettlingen bei Karlsruhe bin ich in nur 30 Minuten bei euch in Heidelberg. Ich kenne die schönsten Ecken und das beste Licht — ob ihr in der <strong>Alten Universität</strong> heiratet oder eure Feier im <strong>Schloss</strong> genießt.</p>`}
+    locations={[
+      { name: 'Heidelberger Schloss', desc: 'Die ikonische Schlossruine — romantisch, majestätisch und unvergesslich.' },
+      { name: 'Alte Brücke & Altstadt', desc: 'Malerische Gassen und der Blick vom Brückentor auf den Neckar.' },
+      { name: 'Philosophenweg', desc: 'Panoramablick über die Stadt — perfekt für goldene Stunde Paarfotos.' },
+      { name: 'Standesamt Heidelberg', desc: 'Stilvolle Trauungen im historischen Rathaus.' },
+    ]}
+  />
+</BaseLayout>

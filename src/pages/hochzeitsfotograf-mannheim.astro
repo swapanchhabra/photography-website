@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationPage from '../components/sections/LocationPage.astro';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Hochzeitsfotograf Mannheim', url: `${SITE.url}/hochzeitsfotograf-mannheim` },
+]);
+---
+
+<BaseLayout
+  title="Hochzeitsfotograf Mannheim — Moderne Hochzeitsfotografie | Pose and Say Cheese Photography"
+  description="Euer Hochzeitsfotograf in Mannheim. Authentische Hochzeitsfotos am Barockschloss, Luisenpark und den schönsten urbanen Locations in Mannheim."
+  schema={schema}
+>
+  <LocationPage
+    city="Mannheim"
+    heroImage="/images/hero/services-hero.jpg"
+    intro={`<p>Mannheim verbindet urbanen Charme mit barocker Eleganz — ideal für moderne, authentische Hochzeitsfotos. Das <strong>Barockschloss Mannheim</strong>, der <strong>Luisenpark</strong> und die kreativen Ecken in <strong>Jungbusch</strong> bieten eine spannende Mischung aus klassisch und modern.</p>
+    <p>Von Ettlingen aus bin ich in etwa 40 Minuten bei euch in Mannheim. Ob standesamtliche Trauung im <strong>Rathaus</strong>, freie Trauung im <strong>Luisenpark</strong> oder Feier in einem der vielen coolen Locations — ich halte euren Tag authentisch fest.</p>`}
+    locations={[
+      { name: 'Barockschloss Mannheim', desc: 'Eines der größten Barockschlösser Europas — imposant und elegant.' },
+      { name: 'Luisenpark', desc: 'Grüne Oase mitten in der Stadt für romantische Outdoor-Fotos.' },
+      { name: 'Alte Feuerwache', desc: 'Industrieller Charme für moderne, urbane Hochzeitsfotos.' },
+      { name: 'Wasserturm', desc: 'Das Wahrzeichen Mannheims — perfekt für Paarfotos mit Charakter.' },
+    ]}
+  />
+</BaseLayout>

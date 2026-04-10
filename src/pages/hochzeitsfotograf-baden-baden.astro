@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationPage from '../components/sections/LocationPage.astro';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Hochzeitsfotograf Baden-Baden', url: `${SITE.url}/hochzeitsfotograf-baden-baden` },
+]);
+---
+
+<BaseLayout
+  title="Hochzeitsfotograf Baden-Baden — Elegante Hochzeitsfotografie | Pose and Say Cheese Photography"
+  description="Euer Hochzeitsfotograf in Baden-Baden. Elegante Hochzeitsfotos im Kurhaus, Lichtentaler Allee und den luxuriösen Locations der Bäderstadt."
+  schema={schema}
+>
+  <LocationPage
+    city="Baden-Baden"
+    heroImage="/images/hero/about-hero.jpg"
+    intro={`<p>Baden-Baden ist Eleganz pur — die <strong>Lichtentaler Allee</strong>, das prachtvolle <strong>Kurhaus</strong> und die historischen Villen bieten eine luxuriöse Kulisse für eure Hochzeitsfotos. Die UNESCO-Welterbestadt am Schwarzwaldrand ist wie geschaffen für romantische Hochzeiten.</p>
+    <p>Von Ettlingen aus bin ich in nur 20 Minuten bei euch in Baden-Baden. Ich kenne die schönsten Locations und versteckten Ecken der Stadt — vom <strong>Rosenneuheitengarten</strong> bis zum <strong>Alten Schloss</strong> mit Blick über das Rheintal.</p>`}
+    locations={[
+      { name: 'Kurhaus & Casino', desc: 'Prachtvoller Ballsaal und elegante Architektur für luxuriöse Hochzeiten.' },
+      { name: 'Lichtentaler Allee', desc: 'Die berühmte Parkanlage entlang der Oos — romantisch zu jeder Jahreszeit.' },
+      { name: 'Altes Schloss Hohenbaden', desc: 'Mittelalterliche Burgruine mit Panoramablick über den Schwarzwald.' },
+      { name: 'Brenners Park-Hotel', desc: 'Weltklasse-Hotel mit herrlichem Parkgelände.' },
+    ]}
+  />
+</BaseLayout>

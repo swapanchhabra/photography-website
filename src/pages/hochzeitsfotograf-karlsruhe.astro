@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { GALLERY_IMAGES } from '../data/gallery';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Hochzeitsfotograf Karlsruhe', url: `${SITE.url}/hochzeitsfotograf-karlsruhe` },
+]);
+const images = GALLERY_IMAGES.slice(0, 4);
+---
+
+<BaseLayout
+  title="Hochzeitsfotograf Karlsruhe — Authentische Hochzeitsfotografie | Pose and Say Cheese Photography"
+  description="Euer Hochzeitsfotograf in Karlsruhe. Emotionale, authentische Hochzeitsfotos im Schlosspark, Botanischen Garten, Turmbergterrasse und den schönsten Locations in Karlsruhe."
+  schema={schema}
+  preloadImage="/images/hero/home-hero.jpg"
+>
+  <HeroSection
+    title="Hochzeitsfotograf Karlsruhe"
+    subtitle="Emotionale und authentische Hochzeitsfotografie an den schönsten Locations in Karlsruhe."
+    image="/images/hero/home-hero.jpg"
+    cta={{ label: 'Jetzt anfragen', href: '/kontakt' }}
+  />
+
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <div class="section-divider mb-8"></div>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">
+          Eure Hochzeit in Karlsruhe
+        </h2>
+      </div>
+      <div class="space-y-6 text-neutral-600 leading-relaxed" data-animate>
+        <p>
+          Karlsruhe bietet wundervolle Kulissen für eure Hochzeitsfotos — vom majestätischen
+          <strong>Schlosspark</strong> über den <strong>Botanischen Garten</strong> bis zur
+          <strong>Turmbergterrasse</strong> in Durlach mit atemberaubendem Blick über die
+          Rheinebene. Als eure Hochzeitsfotografin in Karlsruhe kenne ich die schönsten
+          Locations und die besten Lichtverhältnisse zu jeder Jahreszeit.
+        </p>
+        <p>
+          Ob ihr im <strong>Standesamt Karlsruhe</strong> heiratet, eine freie Trauung im
+          <strong>Stadtgarten</strong> plant oder eure Feier in der <strong>Cantina Majolika</strong>
+          genießt — ich begleite euch den ganzen Tag und halte jeden Moment authentisch fest.
+          Echt statt perfekt, mit Herz und Leidenschaft.
+        </p>
+        <p>
+          Als Fotografin aus Ettlingen bin ich in wenigen Minuten bei euch in Karlsruhe.
+          Die Anfahrt ist bei allen Paketen inklusive. Lernt mich bei einem unverbindlichen
+          Vorgespräch kennen — gerne bei einem Kaffee in der Karlsruher Innenstadt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Gallery -->
+  <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-6">
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12" data-animate>
+        Hochzeitsfotos aus Karlsruhe
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {images.map((img) => (
+          <div class="overflow-hidden group" data-animate>
+            <img
+              src={img.src}
+              alt={`Hochzeitsfoto Karlsruhe — ${img.alt}`}
+              width={img.width}
+              height={img.height}
+              loading="lazy"
+              class="w-full h-64 sm:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-10" data-animate>
+        <a href="/galerie" class="inline-block px-8 py-4 border border-neutral-900 text-neutral-900 text-sm font-semibold uppercase tracking-widest hover:bg-neutral-900 hover:text-white transition-all duration-300">
+          Komplette Galerie ansehen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-4xl px-6">
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12" data-animate>
+        Beliebte Hochzeitslocations in Karlsruhe
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-animate>
+        {[
+          { name: 'Schloss Karlsruhe & Schlosspark', desc: 'Majestätische Kulisse mit barocker Architektur und weitläufigem Park.' },
+          { name: 'Botanischer Garten', desc: 'Romantische Atmosphäre zwischen exotischen Pflanzen und Gewächshäusern.' },
+          { name: 'Turmbergterrasse Durlach', desc: 'Atemberaubender Panoramablick über die Rheinebene.' },
+          { name: 'Cantina Majolika', desc: 'Künstlerisches Flair mit industriellem Charme.' },
+          { name: 'Standesamt Karlsruhe', desc: 'Stilvolle standesamtliche Trauungen im Herzen der Stadt.' },
+          { name: 'Stadtgarten Karlsruhe', desc: 'Grüne Oase für freie Trauungen und Paarshootings.' },
+        ].map((loc) => (
+          <div class="p-6 border border-neutral-200">
+            <h3 class="font-bold tracking-tight">{loc.name}</h3>
+            <p class="mt-2 text-sm text-neutral-500">{loc.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Heiratet ihr in Karlsruhe?"
+    subtitle="Lasst uns über eure Hochzeit sprechen — ich freu mich auf euch!"
+    buttonLabel="Jetzt anfragen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>

@@ -34,5 +34,6 @@ export const NAV_ITEMS = [
   { label: 'Preise', href: '/preise' },
   { label: 'Galerie', href: '/galerie' },
   { label: 'Über mich', href: '/ueber-mich' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Kontakt', href: '/kontakt' },
 ] as const;

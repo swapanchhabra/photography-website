@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSection from '../../components/sections/HeroSection.astro';
+import { breadcrumbSchema } from '../../utils/schema';
+import { SITE } from '../../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Blog', url: `${SITE.url}/blog` },
+]);
+
+// Blog posts — add new posts here
+const posts = [
+  {
+    title: 'Hochzeit im Schloss Favorite Rastatt — Sarah & Jan',
+    slug: 'hochzeit-schloss-favorite-rastatt',
+    date: '2025-09-15',
+    excerpt: 'Eine märchenhafte Hochzeit im Schloss Favorite — mit freier Trauung im Wald, emotionalem Getting Ready und einer ausgelassenen Feier bis tief in die Nacht.',
+    image: '/images/gallery/wedding-05.jpg',
+    category: 'Echte Hochzeiten',
+  },
+];
+---
+
+<BaseLayout
+  title="Blog — Hochzeitsfotografie Geschichten & Tipps | Pose and Say Cheese Photography"
+  description="Echte Hochzeitsgeschichten, Tipps zur Hochzeitsplanung und Inspiration für eure Hochzeitsfotografie. Blog von Pose and Say Cheese Photography Karlsruhe."
+  schema={schema}
+>
+  <HeroSection
+    title="Blog"
+    subtitle="Echte Hochzeitsgeschichten, Tipps und Inspiration."
+    image="/images/hero/gallery-hero.jpg"
+  />
+
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="mx-auto max-w-5xl px-6">
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {posts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="group block" data-animate>
+              <div class="overflow-hidden">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  width="600"
+                  height="400"
+                  loading="lazy"
+                  class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div class="mt-4">
+                <span class="text-xs font-medium uppercase tracking-widest text-accent">{post.category}</span>
+                <h2 class="mt-2 text-xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300">
+                  {post.title}
+                </h2>
+                <p class="mt-2 text-sm text-neutral-500 leading-relaxed">{post.excerpt}</p>
+                <time class="mt-3 block text-xs text-neutral-400">
+                  {new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-neutral-500">Bald erscheinen hier spannende Hochzeitsgeschichten und Tipps.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

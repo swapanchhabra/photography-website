@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABanner from '../../components/sections/CTABanner.astro';
+import { GALLERY_IMAGES } from '../../data/gallery';
+import { breadcrumbSchema } from '../../utils/schema';
+import { SITE } from '../../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Blog', url: `${SITE.url}/blog` },
+  { name: 'Hochzeit im Schloss Favorite', url: `${SITE.url}/blog/hochzeit-schloss-favorite-rastatt` },
+]);
+
+const images = GALLERY_IMAGES.slice(0, 8);
+---
+
+<BaseLayout
+  title="Hochzeit im Schloss Favorite Rastatt — Sarah & Jan | Pose and Say Cheese Photography"
+  description="Eine märchenhafte Hochzeit im Schloss Favorite Rastatt. Freie Trauung, emotionales Getting Ready und eine ausgelassene Party. Hochzeitsfotografie Karlsruhe."
+  schema={schema}
+  preloadImage="/images/gallery/wedding-05.jpg"
+>
+  <!-- Hero Image -->
+  <div class="relative h-[60vh] lg:h-[70vh] overflow-hidden">
+    <img
+      src="/images/gallery/wedding-05.jpg"
+      alt="Hochzeit im Schloss Favorite Rastatt"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
+  </div>
+
+  <article class="py-16 lg:py-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <!-- Header -->
+      <header class="text-center mb-12" data-animate>
+        <span class="text-xs font-medium uppercase tracking-widest text-accent">Echte Hochzeiten</span>
+        <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-balance">
+          Hochzeit im Schloss Favorite Rastatt
+        </h1>
+        <p class="mt-3 text-lg text-neutral-500 font-light">Sarah & Jan — September 2025</p>
+        <div class="section-divider mt-8"></div>
+      </header>
+
+      <!-- Content -->
+      <div class="space-y-6 text-neutral-700 leading-relaxed" data-animate>
+        <p class="text-lg">
+          Sarah und Jan haben sich für eine der romantischsten Locations in der Region entschieden:
+          das <strong>Schloss Favorite</strong> bei Rastatt. Ein märchenhaftes Lustschloss, umgeben
+          von Wald — wie aus einem Bilderbuch.
+        </p>
+
+        <h2 class="text-2xl font-bold tracking-tight pt-4">Getting Ready</h2>
+        <p>
+          Der Tag begann mit einem entspannten Getting Ready im nahegelegenen Hotel. Während Sarah
+          von ihrer Schwester und der Visagistin gestylt wurde, bereitete sich Jan mit seinen
+          Trauzeugen vor. Die Aufregung war spürbar — aber auch die pure Vorfreude.
+        </p>
+      </div>
+
+      <!-- Gallery strip -->
+      <div class="grid grid-cols-2 gap-3 my-10">
+        {images.slice(0, 4).map((img) => (
+          <img
+            src={img.src}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            loading="lazy"
+            class="w-full h-48 sm:h-64 object-cover"
+          />
+        ))}
+      </div>
+
+      <div class="space-y-6 text-neutral-700 leading-relaxed" data-animate>
+        <h2 class="text-2xl font-bold tracking-tight">Die freie Trauung</h2>
+        <p>
+          Die freie Trauung fand auf der Wiese vor dem Schloss statt — umgeben von alten Bäumen
+          und dem Gesang der Vögel. Als Sarah auf dem Arm ihres Vaters den Gang entlangging,
+          konnte Jan seine Tränen nicht zurückhalten. Ein Moment, den ich nie vergessen werde.
+        </p>
+
+        <h2 class="text-2xl font-bold tracking-tight pt-4">Paarfotos im Schlossgarten</h2>
+        <p>
+          Nach der Trauung nutzten wir die goldene Stunde für entspannte Paarfotos im Schlossgarten.
+          Sarah und Jan waren so natürlich und verliebt miteinander — es war ein Traum, sie zu
+          fotografieren. Keine gestellten Posen, nur echte Momente.
+        </p>
+      </div>
+
+      <!-- More images -->
+      <div class="grid grid-cols-2 gap-3 my-10">
+        {images.slice(4, 8).map((img) => (
+          <img
+            src={img.src}
+            alt={img.alt}
+            width={img.width}
+            height={img.height}
+            loading="lazy"
+            class="w-full h-48 sm:h-64 object-cover"
+          />
+        ))}
+      </div>
+
+      <div class="space-y-6 text-neutral-700 leading-relaxed" data-animate>
+        <h2 class="text-2xl font-bold tracking-tight">Die Feier</h2>
+        <p>
+          Die Feier fand in der Orangerie des Schlosses statt — mit warmem Kerzenlicht,
+          liebevoller Tischdekoration und einer unglaublichen Stimmung. Der erste Tanz,
+          die emotionalen Reden, das ausgelassene Lachen auf der Tanzfläche — alles war
+          einfach perfekt.
+        </p>
+
+        <div class="bg-warm-cream p-8 my-8 text-center">
+          <p class="font-serif text-lg italic text-neutral-800">
+            &ldquo;Die Fotos sind noch schöner, als wir es uns je hätten vorstellen können.
+            Danke, dass du unseren Tag so wundervoll festgehalten hast!&rdquo;
+          </p>
+          <cite class="mt-4 block text-sm font-semibold not-italic">— Sarah & Jan</cite>
+        </div>
+
+        <h2 class="text-2xl font-bold tracking-tight">Location-Details</h2>
+        <ul class="space-y-2 text-sm">
+          <li><strong>Location:</strong> Schloss Favorite, Rastatt</li>
+          <li><strong>Trauung:</strong> Freie Trauung im Schlossgarten</li>
+          <li><strong>Feier:</strong> Orangerie des Schlosses</li>
+          <li><strong>Paket:</strong> Hochzeitsreportage (10 Stunden)</li>
+          <li><strong>Fotos:</strong> 450+ bearbeitete Bilder</li>
+        </ul>
+      </div>
+
+      <!-- Back to blog -->
+      <div class="mt-12 pt-8 border-t border-neutral-200 text-center">
+        <a href="/blog" class="text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors">
+          &larr; Zurück zum Blog
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <CTABanner
+    title="Plant ihr auch eine Hochzeit?"
+    subtitle="Lasst uns über euren großen Tag sprechen."
+    buttonLabel="Jetzt anfragen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>

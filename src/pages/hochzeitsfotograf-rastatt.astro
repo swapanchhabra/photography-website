@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationPage from '../components/sections/LocationPage.astro';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Hochzeitsfotograf Rastatt', url: `${SITE.url}/hochzeitsfotograf-rastatt` },
+]);
+---
+
+<BaseLayout
+  title="Hochzeitsfotograf Rastatt — Hochzeitsfotografie am Schloss | Pose and Say Cheese Photography"
+  description="Euer Hochzeitsfotograf in Rastatt. Authentische Hochzeitsfotos am Schloss Rastatt, Schloss Favorite und den schönsten barocken Locations."
+  schema={schema}
+>
+  <LocationPage
+    city="Rastatt"
+    heroImage="/images/hero/services-hero.jpg"
+    intro={`<p>Rastatt ist ein Geheimtipp für Hochzeitspaare — das prachtvolle <strong>Barockschloss Rastatt</strong> und das märchenhafte <strong>Schloss Favorite</strong> im Wald bieten eine einzigartige Kulisse, die ihresgleichen sucht. Barocke Eleganz trifft auf romantische Natur.</p>
+    <p>Von Ettlingen aus bin ich in nur 15 Minuten bei euch in Rastatt. Ich habe bereits viele Hochzeiten an den Rastatter Schlössern begleitet und kenne die schönsten Perspektiven und Lichtstimmungen zu jeder Jahreszeit.</p>`}
+    locations={[
+      { name: 'Schloss Rastatt', desc: 'Prachtvoller Barocktempel — eines der bedeutendsten Barockschlösser am Oberrhein.' },
+      { name: 'Schloss Favorite', desc: 'Märchenhaftes Lustschloss im Wald — wie aus einem Bilderbuch.' },
+      { name: 'Pagodenburg', desc: 'Exotischer Gartenpavillon mit asiatischem Flair.' },
+      { name: 'Murgauen', desc: 'Naturnahe Kulisse entlang der Murg für entspannte Outdoor-Shootings.' },
+    ]}
+  />
+</BaseLayout>
