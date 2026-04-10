@@ -8,7 +8,7 @@ const isActive = (href: string) =>
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  class="fixed top-0 left-0 right-0 z-[55] transition-all duration-500"
 >
   <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between" aria-label="Hauptnavigation">
     <!-- Logo -->
@@ -40,7 +40,7 @@ const isActive = (href: string) =>
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
-      class="lg:hidden flex flex-col gap-1.5 p-2 z-50"
+      class="lg:hidden flex flex-col gap-1.5 p-3 z-[60] relative"
       aria-label="Menü öffnen"
       aria-expanded="false"
       aria-controls="mobile-menu"
@@ -56,8 +56,18 @@ const isActive = (href: string) =>
     id="mobile-menu"
     role="dialog"
     aria-label="Navigation"
-    class="fixed inset-0 bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden"
+    class="fixed inset-0 z-50 bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden pt-[env(safe-area-inset-top)]"
   >
+    <!-- Close button inside overlay -->
+    <button
+      id="mobile-menu-close"
+      class="absolute top-6 right-6 p-3 text-white/80 hover:text-white transition-colors z-[60]"
+      aria-label="Menü schließen"
+    >
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
     <nav aria-label="Mobile Navigation">
       <ul class="flex flex-col items-center gap-8" role="list">
         {NAV_ITEMS.map((item) => (
@@ -83,6 +93,7 @@ const isActive = (href: string) =>
   const header = document.getElementById('header')!;
   const btn = document.getElementById('mobile-menu-btn')!;
   const menu = document.getElementById('mobile-menu')!;
+  const closeBtn = document.getElementById('mobile-menu-close')!;
   const bar1 = document.getElementById('bar1')!;
   const bar2 = document.getElementById('bar2')!;
   const bar3 = document.getElementById('bar3')!;
@@ -149,6 +160,7 @@ const isActive = (href: string) =>
   updateHeader();
 
   btn.addEventListener('click', () => toggleMenu(!isOpen));
+  closeBtn.addEventListener('click', () => toggleMenu(false));
 
   // Escape key closes mobile menu
   document.addEventListener('keydown', (e) => {
