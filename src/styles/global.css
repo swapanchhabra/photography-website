@@ -1,22 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --color-accent: #c9a96e;
-  --color-accent-hover: #b8944f;
-  --color-warm-cream: #f8f6f3;
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
-  --color-neutral-950: #0a0a0a;
+  --font-sans: "Lora", Georgia, "Times New Roman", serif;
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --color-accent: #b8a99a;
+  --color-accent-hover: #a39485;
+  --color-warm-cream: #f5f0e8;
+  --color-parchment: #f8f5ef;
+  --color-neutral-50: #faf8f5;
+  --color-neutral-100: #f3efe9;
+  --color-neutral-200: #e8e2d9;
+  --color-neutral-300: #d4cdc3;
+  --color-neutral-400: #a9a29a;
+  --color-neutral-500: #8a8380;
+  --color-neutral-600: #6b6560;
+  --color-neutral-700: #564f4a;
+  --color-neutral-800: #3d3733;
+  --color-neutral-900: #2a2523;
+  --color-neutral-950: #1a1614;
 }
 
 @layer base {
@@ -28,16 +29,17 @@
 
   body {
     font-family: var(--font-sans);
-    color: var(--color-neutral-900);
-    background-color: #ffffff;
-    line-height: 1.6;
+    color: var(--color-neutral-600);
+    background-color: var(--color-parchment);
+    line-height: 1.8;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: var(--color-neutral-700);
   }
 
   ::selection {

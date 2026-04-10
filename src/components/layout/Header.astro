@@ -12,7 +12,7 @@ const isActive = (href: string) =>
 >
   <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between" aria-label="Hauptnavigation">
     <!-- Logo -->
-    <a href="/" class="header-logo text-xl font-bold tracking-tight transition-colors duration-300" id="logo-link">
+    <a href="/" class="header-logo font-serif text-xl tracking-[0.15em] uppercase transition-colors duration-300" id="logo-link">
       {SITE.name}
     </a>
 
@@ -24,8 +24,8 @@ const isActive = (href: string) =>
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'header-nav-link relative text-sm font-medium tracking-wide uppercase transition-colors duration-300',
-              'after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] after:bg-current after:transition-all after:duration-300',
+              'header-nav-link relative font-serif text-sm italic tracking-wide transition-colors duration-300',
+              'after:absolute after:bottom-[-4px] after:left-0 after:h-[1px] after:bg-current after:transition-all after:duration-300',
               isActive(item.href)
                 ? 'after:w-full'
                 : 'after:w-0 hover:after:w-full',
@@ -40,14 +40,13 @@ const isActive = (href: string) =>
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
-      class="lg:hidden flex flex-col gap-1.5 p-3 z-[60] relative"
+      class="lg:hidden flex flex-col gap-[5px] p-3 z-[60] relative"
       aria-label="Menü öffnen"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <span class="header-bar block w-6 h-[2px] transition-all duration-300 origin-center pointer-events-none" id="bar1"></span>
-      <span class="header-bar block w-6 h-[2px] transition-all duration-300 pointer-events-none" id="bar2"></span>
-      <span class="header-bar block w-6 h-[2px] transition-all duration-300 origin-center pointer-events-none" id="bar3"></span>
+      <span class="header-bar block w-7 h-[1px] transition-all duration-300 origin-center pointer-events-none" id="bar1"></span>
+      <span class="header-bar block w-7 h-[1px] transition-all duration-300 pointer-events-none" id="bar2"></span>
     </button>
   </nav>
 </header>
@@ -57,28 +56,28 @@ const isActive = (href: string) =>
   id="mobile-menu"
   role="dialog"
   aria-label="Navigation"
-  class="fixed inset-0 z-[56] bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden pt-[env(safe-area-inset-top)]"
+  class="mobile-menu-overlay fixed inset-0 z-[56] flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden pt-[env(safe-area-inset-top)]"
 >
-  <!-- Close button inside overlay -->
+  <!-- Close button -->
   <button
     id="mobile-menu-close"
-    class="absolute top-8 right-6 p-3 text-white/80 hover:text-white transition-colors z-[60]"
+    class="absolute top-8 right-6 p-3 text-neutral-400 hover:text-neutral-700 transition-colors z-[60]"
     aria-label="Menü schließen"
   >
-    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
   </button>
   <nav aria-label="Mobile Navigation">
-    <ul class="flex flex-col items-center gap-8" role="list">
+    <ul class="flex flex-col items-center gap-7" role="list">
       {NAV_ITEMS.map((item) => (
         <li>
           <a
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'text-2xl font-light tracking-widest uppercase transition-colors duration-300',
-              isActive(item.href) ? 'text-accent' : 'text-white/90 hover:text-white',
+              'font-serif text-2xl italic tracking-wider transition-colors duration-300',
+              isActive(item.href) ? 'text-neutral-800' : 'text-neutral-400 hover:text-neutral-700',
             ]}
           >
             {item.label}
@@ -90,6 +89,11 @@ const isActive = (href: string) =>
 </div>
 
 <style is:global>
+  /* Mobile menu: light parchment/cream background */
+  .mobile-menu-overlay {
+    background-color: #f5f0e8;
+  }
+
   /* Default state: transparent header with white text (over hero image) */
   .site-header .header-logo {
     color: #ffffff;
@@ -104,36 +108,35 @@ const isActive = (href: string) =>
     background-color: #ffffff;
   }
 
-  /* Scrolled state: white background with dark text */
+  /* Scrolled state: cream background with muted text */
   .site-header.scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(245, 240, 232, 0.95);
     backdrop-filter: blur(12px);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
   .site-header.scrolled .header-logo {
-    color: #171717;
+    color: #564f4a;
   }
   .site-header.scrolled .header-nav-link {
-    color: #525252;
+    color: #8a8380;
   }
   .site-header.scrolled .header-nav-link:hover {
-    color: #171717;
+    color: #564f4a;
   }
   .site-header.scrolled .header-bar {
-    background-color: #171717;
+    background-color: #564f4a;
   }
 
-  /* When mobile menu is open, reset header to transparent so white bg doesn't bleed through */
+  /* When mobile menu is open, reset header to transparent */
   .site-header.menu-open {
     background-color: transparent !important;
     backdrop-filter: none !important;
     box-shadow: none !important;
   }
   .site-header.menu-open .header-logo {
-    color: #ffffff !important;
+    color: #564f4a !important;
   }
   .site-header.menu-open .header-bar {
-    background-color: #ffffff !important;
+    background-color: #564f4a !important;
   }
 </style>
 
@@ -166,7 +169,6 @@ const isActive = (href: string) =>
   }
 
   function updateHeader() {
-    // Pages without a hero always show the scrolled (dark text) state
     if (!hasHero || window.scrollY > 50) {
       header.classList.add('scrolled');
     } else if (!isOpen) {
@@ -181,7 +183,6 @@ const isActive = (href: string) =>
     closeBtn = document.getElementById('mobile-menu-close')!;
     hasHero = !!document.querySelector('[data-hero]');
 
-    // Reset mobile menu state after navigation
     isOpen = false;
     menu.classList.add('opacity-0', 'pointer-events-none');
     menu.classList.remove('opacity-100', 'pointer-events-auto');
@@ -192,7 +193,6 @@ const isActive = (href: string) =>
     updateHeader();
   }
 
-  // Bind events once (they persist across View Transitions)
   window.addEventListener('scroll', updateHeader, { passive: true });
 
   document.addEventListener('click', (e) => {
@@ -210,7 +210,6 @@ const isActive = (href: string) =>
     }
   });
 
-  // Run on initial load and after each View Transition swap
   init();
   document.addEventListener('astro:after-swap', init);
 </script>

@@ -33,7 +33,7 @@ const posts = [
     image="/images/hero/gallery-hero.jpg"
   />
 
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-5xl px-6">
       {posts.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -51,7 +51,7 @@ const posts = [
               </div>
               <div class="mt-4">
                 <span class="text-xs font-medium uppercase tracking-widest text-accent">{post.category}</span>
-                <h2 class="mt-2 text-xl font-bold tracking-tight group-hover:text-accent transition-colors duration-300">
+                <h2 class="mt-2 text-xl font-serif italic tracking-wide text-neutral-700 group-hover:text-accent transition-colors duration-300">
                   {post.title}
                 </h2>
                 <p class="mt-2 text-sm text-neutral-500 leading-relaxed">{post.excerpt}</p>

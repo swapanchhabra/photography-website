@@ -6,25 +6,25 @@ import { PACKAGES } from '../../data/packages';
   {PACKAGES.map((pkg) => (
     <div
       class:list={[
-        'relative flex flex-col p-8 lg:p-10 transition-all duration-500 hover:-translate-y-2',
+        'relative flex flex-col p-8 lg:p-10 transition-all duration-500 hover:-translate-y-1',
         pkg.highlighted
-          ? 'bg-neutral-950 text-white ring-2 ring-accent shadow-2xl scale-[1.02] lg:scale-105'
-          : 'bg-white text-neutral-900 border border-neutral-200 hover:shadow-xl',
+          ? 'bg-neutral-800 text-white border border-neutral-700 shadow-xl scale-[1.02] lg:scale-105'
+          : 'bg-parchment border border-neutral-200 hover:shadow-lg',
       ]}
       data-animate
     >
       {pkg.highlighted && (
-        <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs font-semibold uppercase tracking-widest">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs tracking-[0.15em] uppercase">
           Beliebt
         </span>
       )}
-      <h3 class="text-2xl font-serif font-bold tracking-tight">{pkg.name}</h3>
-      <p class="mt-2 text-3xl font-bold tracking-tight">
+      <h3 class="font-serif text-2xl italic tracking-wide">{pkg.name}</h3>
+      <p class="mt-2 font-serif text-3xl tracking-wide">
         {pkg.price}
       </p>
       <p class:list={[
         'mt-3 text-sm',
-        pkg.highlighted ? 'text-white/70' : 'text-neutral-500',
+        pkg.highlighted ? 'text-white/60' : 'text-neutral-500',
       ]}>
         {pkg.description}
       </p>
@@ -32,7 +32,7 @@ import { PACKAGES } from '../../data/packages';
         {pkg.features.map((feature) => (
           <li class="flex items-start gap-3 text-sm">
             <svg class:list={['w-5 h-5 flex-shrink-0 mt-0.5', pkg.highlighted ? 'text-accent' : 'text-accent']} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
             </svg>
             <span>{feature}</span>
           </li>
@@ -41,10 +41,10 @@ import { PACKAGES } from '../../data/packages';
       <a
         href="/kontakt"
         class:list={[
-          'mt-8 block text-center px-6 py-4 text-sm font-semibold uppercase tracking-widest transition-all duration-300',
+          'mt-8 block text-center px-6 py-4 text-xs tracking-[0.2em] uppercase transition-all duration-300',
           pkg.highlighted
-            ? 'bg-accent text-white hover:bg-accent-hover'
-            : 'bg-neutral-900 text-white hover:bg-neutral-800',
+            ? 'border border-white/40 text-white hover:bg-white/10'
+            : 'border border-neutral-400 text-neutral-600 hover:border-neutral-700 hover:text-neutral-700',
         ]}
       >
         Jetzt anfragen

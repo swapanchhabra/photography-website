@@ -15,13 +15,24 @@ test.describe('Mobile header visibility', () => {
     await page.evaluate(() => window.scrollBy(0, 800));
     await page.waitForTimeout(500);
 
-    // After scroll: header should have scrolled class (white bg, dark text)
+    // After scroll: header should have scrolled class (cream bg, dark text)
     await expect(header).toHaveClass(/scrolled/);
 
-    // Logo text should be dark (visible on white background)
-    const logoColor = await logo.evaluate((el) => getComputedStyle(el).color);
-    // #171717 = rgb(23, 23, 23)
-    expect(logoColor).toBe('rgb(23, 23, 23)');
+    // Logo text should be dark (visible on cream background)
+    const logoColor = await logo.evaluate((el) => {
+      const color = getComputedStyle(el).color;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b };
+    });
+    // #564f4a = dark brownish gray - all values should be < 100
+    expect(logoColor.r).toBeLessThan(100);
+    expect(logoColor.g).toBeLessThan(100);
+    expect(logoColor.b).toBeLessThan(100);
   });
 
   test('header has scrolled state on pages without hero', async ({ page }) => {
@@ -35,8 +46,19 @@ test.describe('Mobile header visibility', () => {
 
     // Logo should be dark
     const logo = page.locator('#logo-link');
-    const logoColor = await logo.evaluate((el) => getComputedStyle(el).color);
-    expect(logoColor).toBe('rgb(23, 23, 23)');
+    const logoColor = await logo.evaluate((el) => {
+      const color = getComputedStyle(el).color;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b };
+    });
+    expect(logoColor.r).toBeLessThan(100);
+    expect(logoColor.g).toBeLessThan(100);
+    expect(logoColor.b).toBeLessThan(100);
   });
 
   test('mobile menu opens, navigates, and hamburger is clickable after', async ({ page }) => {
@@ -79,11 +101,11 @@ test.describe('Mobile header visibility', () => {
     await expect(menu).toHaveCSS('opacity', '1');
   });
 
-  test('mobile menu has dark background when opened after scrolling', async ({ page }) => {
+  test('mobile menu has cream background when opened after scrolling', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    // Scroll down so header enters scrolled (white bg) state
+    // Scroll down so header enters scrolled state
     await page.evaluate(() => window.scrollBy(0, 800));
     await page.waitForTimeout(500);
 
@@ -98,10 +120,9 @@ test.describe('Mobile header visibility', () => {
     const menu = page.locator('#mobile-menu');
     await expect(menu).toHaveCSS('opacity', '1');
 
-    // Menu overlay should have dark background (near-opaque dark color)
+    // Menu overlay should have light cream background (#f5f0e8)
     const menuBg = await menu.evaluate((el) => {
       const bg = getComputedStyle(el).backgroundColor;
-      // Parse any color format to check darkness and opacity
       const canvas = document.createElement('canvas');
       canvas.width = canvas.height = 1;
       const ctx = canvas.getContext('2d')!;
@@ -110,16 +131,14 @@ test.describe('Mobile header visibility', () => {
       const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
       return { r, g, b, a };
     });
-    // Should be very dark (r,g,b all < 20) and nearly opaque (a > 240)
-    expect(menuBg.r).toBeLessThan(20);
-    expect(menuBg.g).toBeLessThan(20);
-    expect(menuBg.b).toBeLessThan(20);
-    expect(menuBg.a).toBeGreaterThan(240);
+    // Should be light cream (r,g,b all > 220) and fully opaque
+    expect(menuBg.r).toBeGreaterThan(220);
+    expect(menuBg.g).toBeGreaterThan(220);
+    expect(menuBg.b).toBeGreaterThan(200);
+    expect(menuBg.a).toBe(255);
 
-    // Header should have menu-open class (transparent, not white)
+    // Header should have menu-open class
     await expect(header).toHaveClass(/menu-open/);
-    const headerBg = await header.evaluate((el) => getComputedStyle(el).backgroundColor);
-    expect(headerBg).toBe('rgba(0, 0, 0, 0)');
   });
 
   test('header bars (hamburger icon) change color on scroll', async ({ page }) => {
@@ -129,15 +148,38 @@ test.describe('Mobile header visibility', () => {
     const bar = page.locator('#bar1');
 
     // Initially white
-    const initialBg = await bar.evaluate((el) => getComputedStyle(el).backgroundColor);
-    expect(initialBg).toBe('rgb(255, 255, 255)');
+    const initialBg = await bar.evaluate((el) => {
+      const bg = getComputedStyle(el).backgroundColor;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b };
+    });
+    expect(initialBg.r).toBe(255);
+    expect(initialBg.g).toBe(255);
+    expect(initialBg.b).toBe(255);
 
     // Scroll down
     await page.evaluate(() => window.scrollBy(0, 800));
     await page.waitForTimeout(500);
 
     // After scroll: bars should be dark
-    const scrolledBg = await bar.evaluate((el) => getComputedStyle(el).backgroundColor);
-    expect(scrolledBg).toBe('rgb(23, 23, 23)');
+    const scrolledBg = await bar.evaluate((el) => {
+      const bg = getComputedStyle(el).backgroundColor;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b };
+    });
+    // #564f4a = dark brownish gray
+    expect(scrolledBg.r).toBeLessThan(100);
+    expect(scrolledBg.g).toBeLessThan(100);
+    expect(scrolledBg.b).toBeLessThan(100);
   });
 });

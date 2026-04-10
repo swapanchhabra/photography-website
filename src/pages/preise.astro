@@ -25,10 +25,10 @@ const pricingFAQ = FAQ_ITEMS.filter((item) => item.category === 'Preise & Zahlun
   />
 
   <!-- Pricing Cards -->
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-6xl px-6">
       <div class="text-center mb-16" data-animate>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif italic tracking-wide text-neutral-700">
           Unsere Pakete
         </h2>
         <p class="mt-4 text-lg text-neutral-500 font-light max-w-2xl mx-auto">
@@ -48,7 +48,7 @@ const pricingFAQ = FAQ_ITEMS.filter((item) => item.category === 'Preise & Zahlun
   <section class="py-20 lg:py-28 bg-neutral-50">
     <div class="mx-auto max-w-3xl px-6">
       <div class="text-center mb-12" data-animate>
-        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Fragen zu den Preisen</h2>
+        <h2 class="text-3xl sm:text-4xl font-serif italic tracking-wide text-neutral-700">Fragen zu den Preisen</h2>
       </div>
       <FAQAccordion items={pricingFAQ} />
     </div>

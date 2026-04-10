@@ -21,21 +21,21 @@ const images = GALLERY_IMAGES.slice(0, 4);
   cta={{ label: 'Jetzt anfragen', href: '/kontakt' }}
 />
 
-<section class="py-20 lg:py-28 bg-white">
+<section class="py-20 lg:py-28 bg-parchment">
   <div class="mx-auto max-w-4xl px-6">
     <div class="text-center mb-16" data-animate>
       <div class="section-divider mb-8"></div>
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">
+      <h2 class="text-3xl sm:text-4xl font-serif italic tracking-wide text-neutral-700">
         Eure Hochzeit in {city}
       </h2>
     </div>
-    <div class="space-y-6 text-neutral-600 leading-relaxed" data-animate set:html={intro} />
+    <div class="space-y-6 text-neutral-500 leading-relaxed" data-animate set:html={intro} />
   </div>
 </section>
 
 <section class="py-20 lg:py-28 bg-neutral-50">
   <div class="mx-auto max-w-7xl px-6">
-    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12" data-animate>
+    <h2 class="text-2xl sm:text-3xl font-serif italic tracking-wide text-neutral-700 text-center mb-12" data-animate>
       Hochzeitsfotos aus {city}
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -53,7 +53,7 @@ const images = GALLERY_IMAGES.slice(0, 4);
       ))}
     </div>
     <div class="text-center mt-10" data-animate>
-      <a href="/galerie" class="inline-block px-8 py-4 border border-neutral-900 text-neutral-900 text-sm font-semibold uppercase tracking-widest hover:bg-neutral-900 hover:text-white transition-all duration-300">
+      <a href="/galerie" class="inline-block px-8 py-4 border border-neutral-400 text-neutral-600 text-xs tracking-[0.25em] uppercase hover:border-neutral-700 hover:text-neutral-700 transition-all duration-300">
         Komplette Galerie ansehen
       </a>
     </div>
@@ -61,15 +61,15 @@ const images = GALLERY_IMAGES.slice(0, 4);
 </section>
 
 {locations.length > 0 && (
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-4xl px-6">
-      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-12" data-animate>
+      <h2 class="text-2xl sm:text-3xl font-serif italic tracking-wide text-neutral-700 text-center mb-12" data-animate>
         Beliebte Hochzeitslocations in {city}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-animate>
         {locations.map((loc) => (
           <div class="p-6 border border-neutral-200">
-            <h3 class="font-bold tracking-tight">{loc.name}</h3>
+            <h3 class="font-serif italic tracking-wide text-neutral-700">{loc.name}</h3>
             <p class="mt-2 text-sm text-neutral-500">{loc.desc}</p>
           </div>
         ))}

@@ -47,9 +47,9 @@ const services = [
   />
 
   <!-- Approach -->
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-3xl px-6 text-center" data-animate>
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Mein Ansatz</h2>
+      <h2 class="text-3xl sm:text-4xl font-serif italic tracking-wide text-neutral-700">Mein Ansatz</h2>
       <p class="mt-6 text-neutral-500 leading-relaxed">
         Ich glaube an authentische Fotografie. Keine erzwungenen Posen, keine übertriebene Inszenierung.
         Stattdessen begleite ich euch unauffällig durch den Tag und fange die echten Momente ein —
@@ -63,15 +63,15 @@ const services = [
   <section class="py-20 lg:py-28 bg-neutral-50">
     <div class="mx-auto max-w-7xl px-6">
       <div class="text-center mb-16" data-animate>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif italic tracking-wide text-neutral-700">
           Was ich anbiete
         </h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.map((service) => (
-          <div class="bg-white p-8 lg:p-10 border border-neutral-200 transition-all duration-300 hover:border-neutral-400" data-animate>
-            <h3 class="text-xl font-bold tracking-tight">{service.title}</h3>
+          <div class="bg-parchment p-8 lg:p-10 border border-neutral-200 transition-all duration-300 hover:border-neutral-400" data-animate>
+            <h3 class="text-xl font-serif italic tracking-wide text-neutral-700">{service.title}</h3>
             <p class="mt-3 text-sm text-neutral-500 leading-relaxed">{service.description}</p>
           </div>
         ))}
@@ -80,10 +80,10 @@ const services = [
   </section>
 
   <!-- Process -->
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-5xl px-6">
       <div class="text-center mb-16" data-animate>
-        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">So läuft es ab</h2>
+        <h2 class="text-3xl sm:text-4xl font-serif italic tracking-wide text-neutral-700">So läuft es ab</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -95,7 +95,7 @@ const services = [
         ].map((item) => (
           <div class="text-center" data-animate>
             <span class="text-4xl font-bold text-accent">{item.step}</span>
-            <h3 class="mt-3 text-lg font-bold tracking-tight">{item.title}</h3>
+            <h3 class="mt-3 text-lg font-serif italic tracking-wide text-neutral-700">{item.title}</h3>
             <p class="mt-2 text-sm text-neutral-500">{item.desc}</p>
           </div>
         ))}

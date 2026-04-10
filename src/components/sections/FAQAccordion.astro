@@ -21,13 +21,13 @@ const groupedItems = grouped
   {Object.entries(groupedItems).map(([category, categoryItems]) => (
     <div>
       {category && (
-        <h3 class="text-xl font-bold tracking-tight mb-4">{category}</h3>
+        <h3 class="font-serif text-xl italic tracking-wide mb-4">{category}</h3>
       )}
       <div class="space-y-3">
         {categoryItems.map((item, index) => (
           <details class="group border border-neutral-200 transition-all duration-300 hover:border-neutral-400">
             <summary class="flex items-center justify-between cursor-pointer p-5 lg:p-6 text-left">
-              <span class="font-medium text-sm lg:text-base pr-4">{item.question}</span>
+              <span class="text-sm lg:text-base pr-4 text-neutral-700">{item.question}</span>
               <svg
                 class="w-5 h-5 flex-shrink-0 text-neutral-400 transition-transform duration-300 group-open:rotate-180"
                 fill="none"

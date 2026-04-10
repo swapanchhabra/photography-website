@@ -1,5 +1,5 @@
 ---
-const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-neutral-900 text-sm transition-all duration-300 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900';
+const inputClass = 'w-full px-4 py-3.5 border border-neutral-200 bg-parchment text-neutral-700 text-sm transition-all duration-300 focus:outline-none focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500';
 ---
 
 <form
@@ -17,7 +17,7 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
   <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
 
   <div>
-    <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">Name <span class="text-red-500">*</span></label>
+    <label for="name" class="block font-serif text-sm italic text-neutral-600 mb-2">Name <span class="text-red-400">*</span></label>
     <input
       type="text"
       id="name"
@@ -27,12 +27,12 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
       class={inputClass}
       placeholder="Euer Name"
     />
-    <p class="mt-1 text-xs text-red-500 hidden" data-error="name">Bitte gebt euren Namen ein.</p>
+    <p class="mt-1 text-xs text-red-400 hidden" data-error="name">Bitte gebt euren Namen ein.</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
     <div>
-      <label for="email" class="block text-sm font-medium text-neutral-700 mb-2">E-Mail <span class="text-red-500">*</span></label>
+      <label for="email" class="block font-serif text-sm italic text-neutral-600 mb-2">E-Mail <span class="text-red-400">*</span></label>
       <input
         type="email"
         id="email"
@@ -43,10 +43,10 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
         class={inputClass}
         placeholder="ihre@email.de"
       />
-      <p class="mt-1 text-xs text-red-500 hidden" data-error="email">Bitte gebt eine gültige E-Mail-Adresse ein.</p>
+      <p class="mt-1 text-xs text-red-400 hidden" data-error="email">Bitte gebt eine gültige E-Mail-Adresse ein.</p>
     </div>
     <div>
-      <label for="phone" class="block text-sm font-medium text-neutral-700 mb-2">Telefon <span class="text-neutral-400 font-normal">(optional)</span></label>
+      <label for="phone" class="block font-serif text-sm italic text-neutral-600 mb-2">Telefon <span class="text-neutral-400 not-italic">(optional)</span></label>
       <input
         type="tel"
         id="phone"
@@ -61,7 +61,7 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
     <div>
-      <label for="date" class="block text-sm font-medium text-neutral-700 mb-2">Hochzeitsdatum <span class="text-neutral-400 font-normal">(optional)</span></label>
+      <label for="date" class="block font-serif text-sm italic text-neutral-600 mb-2">Hochzeitsdatum <span class="text-neutral-400 not-italic">(optional)</span></label>
       <input
         type="date"
         id="date"
@@ -70,7 +70,7 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
       />
     </div>
     <div>
-      <label for="location" class="block text-sm font-medium text-neutral-700 mb-2">Location <span class="text-neutral-400 font-normal">(optional)</span></label>
+      <label for="location" class="block font-serif text-sm italic text-neutral-600 mb-2">Location <span class="text-neutral-400 not-italic">(optional)</span></label>
       <input
         type="text"
         id="location"
@@ -82,7 +82,7 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
   </div>
 
   <div>
-    <label for="message" class="block text-sm font-medium text-neutral-700 mb-2">Nachricht <span class="text-red-500">*</span></label>
+    <label for="message" class="block font-serif text-sm italic text-neutral-600 mb-2">Nachricht <span class="text-red-400">*</span></label>
     <textarea
       id="message"
       name="nachricht"
@@ -91,13 +91,13 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
       class={`${inputClass} resize-none`}
       placeholder="Erzählt mir von eurer Hochzeit..."
     ></textarea>
-    <p class="mt-1 text-xs text-red-500 hidden" data-error="message">Bitte schreibt eine Nachricht.</p>
+    <p class="mt-1 text-xs text-red-400 hidden" data-error="message">Bitte schreibt eine Nachricht.</p>
   </div>
 
   <button
     type="submit"
     id="submit-btn"
-    class="w-full py-4 bg-neutral-900 text-white text-sm font-semibold uppercase tracking-widest hover:bg-neutral-800 transition-all duration-300 min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
+    class="w-full py-4 border border-neutral-400 text-neutral-600 text-xs tracking-[0.25em] uppercase hover:border-neutral-700 hover:text-neutral-700 transition-all duration-300 min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
   >
     <span id="btn-text">Nachricht senden</span>
     <span id="btn-loading" class="hidden">Wird gesendet...</span>
@@ -114,7 +114,7 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
   form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((field) => {
     field.addEventListener('blur', () => validateField(field));
     field.addEventListener('input', () => {
-      if (field.classList.contains('border-red-500')) {
+      if (field.classList.contains('border-red-400')) {
         validateField(field);
       }
     });
@@ -123,12 +123,12 @@ const inputClass = 'w-full px-4 py-3.5 border border-neutral-300 bg-white text-n
   function validateField(field: HTMLInputElement | HTMLTextAreaElement) {
     const errorEl = form.querySelector(`[data-error="${field.id}"]`);
     if (!field.validity.valid) {
-      field.classList.add('border-red-500');
-      field.classList.remove('border-neutral-300');
+      field.classList.add('border-red-400');
+      field.classList.remove('border-neutral-200');
       errorEl?.classList.remove('hidden');
     } else {
-      field.classList.remove('border-red-500');
-      field.classList.add('border-neutral-300');
+      field.classList.remove('border-red-400');
+      field.classList.add('border-neutral-200');
       errorEl?.classList.add('hidden');
     }
   }

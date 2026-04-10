@@ -19,21 +19,21 @@ const schema = breadcrumbSchema([
     image="/images/hero/home-hero.jpg"
   />
 
-  <section class="py-20 lg:py-28 bg-white">
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-6xl px-6">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
         <!-- Form -->
         <div data-animate>
-          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-8">Anfrage senden</h2>
+          <h2 class="text-2xl sm:text-3xl font-serif italic tracking-wide text-neutral-700 mb-8">Anfrage senden</h2>
           <ContactForm />
         </div>
 
         <!-- Contact Info -->
         <div data-animate>
-          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-8">Kontaktdaten</h2>
+          <h2 class="text-2xl sm:text-3xl font-serif italic tracking-wide text-neutral-700 mb-8">Kontaktdaten</h2>
           <div class="space-y-6">
             <div>
-              <h3 class="text-sm font-semibold uppercase tracking-widest text-neutral-400 mb-2">Adresse</h3>
+              <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">Adresse</h3>
               <p class="text-neutral-700">
                 {SITE.name}<br />
                 {SITE.address.street}<br />
@@ -41,19 +41,19 @@ const schema = breadcrumbSchema([
               </p>
             </div>
             <div>
-              <h3 class="text-sm font-semibold uppercase tracking-widest text-neutral-400 mb-2">E-Mail</h3>
+              <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">E-Mail</h3>
               <a href={`mailto:${SITE.email}`} class="text-neutral-700 hover:text-neutral-900 transition-colors">
                 {SITE.email}
               </a>
             </div>
             <div>
-              <h3 class="text-sm font-semibold uppercase tracking-widest text-neutral-400 mb-2">Telefon</h3>
+              <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">Telefon</h3>
               <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="text-neutral-700 hover:text-neutral-900 transition-colors">
                 {SITE.phone}
               </a>
             </div>
             <div>
-              <h3 class="text-sm font-semibold uppercase tracking-widest text-neutral-400 mb-2">Social Media</h3>
+              <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">Social Media</h3>
               <div class="flex gap-4">
                 <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-neutral-900 transition-colors">
                   Instagram
@@ -65,7 +65,7 @@ const schema = breadcrumbSchema([
             </div>
           </div>
 
-          <div class="mt-10 p-6 bg-neutral-50 border border-neutral-200">
+          <div class="mt-10 p-6 bg-warm-cream border border-neutral-200">
             <p class="text-sm text-neutral-600 leading-relaxed">
               <strong>Antwortzeit:</strong> Ich antworte in der Regel innerhalb von 24 Stunden.
               Für dringende Anfragen erreicht ihr mich auch telefonisch.
