@@ -125,11 +125,12 @@ const isActive = (href: string) =>
 </style>
 
 <script>
-  const header = document.getElementById('header')!;
-  const btn = document.getElementById('mobile-menu-btn')!;
-  const menu = document.getElementById('mobile-menu')!;
-  const closeBtn = document.getElementById('mobile-menu-close')!;
+  let header: HTMLElement;
+  let btn: HTMLElement;
+  let menu: HTMLElement;
+  let closeBtn: HTMLElement;
   let isOpen = false;
+  let hasHero = false;
 
   function toggleMenu(open: boolean) {
     isOpen = open;
@@ -146,29 +147,54 @@ const isActive = (href: string) =>
       menu.classList.remove('opacity-100', 'pointer-events-auto');
       btn.classList.remove('invisible');
       document.body.style.overflow = '';
-      btn.focus();
     }
   }
 
-  // Scroll effect — add background after scrolling
   function updateHeader() {
-    if (window.scrollY > 50) {
+    // Pages without a hero always show the scrolled (dark text) state
+    if (!hasHero || window.scrollY > 50) {
       header.classList.add('scrolled');
     } else if (!isOpen) {
       header.classList.remove('scrolled');
     }
   }
 
+  function init() {
+    header = document.getElementById('header')!;
+    btn = document.getElementById('mobile-menu-btn')!;
+    menu = document.getElementById('mobile-menu')!;
+    closeBtn = document.getElementById('mobile-menu-close')!;
+    hasHero = !!document.querySelector('[data-hero]');
+
+    // Reset mobile menu state after navigation
+    isOpen = false;
+    menu.classList.add('opacity-0', 'pointer-events-none');
+    menu.classList.remove('opacity-100', 'pointer-events-auto');
+    btn.classList.remove('invisible');
+    document.body.style.overflow = '';
+
+    updateHeader();
+  }
+
+  // Bind events once (they persist across View Transitions)
   window.addEventListener('scroll', updateHeader, { passive: true });
-  updateHeader();
 
-  btn.addEventListener('click', () => toggleMenu(!isOpen));
-  closeBtn.addEventListener('click', () => toggleMenu(false));
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('#mobile-menu-btn')) {
+      toggleMenu(!isOpen);
+    } else if (target.closest('#mobile-menu-close')) {
+      toggleMenu(false);
+    }
+  });
 
-  // Escape key closes mobile menu
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen) {
       toggleMenu(false);
     }
   });
+
+  // Run on initial load and after each View Transition swap
+  init();
+  document.addEventListener('astro:after-swap', init);
 </script>
