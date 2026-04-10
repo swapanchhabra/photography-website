@@ -8,11 +8,11 @@ const isActive = (href: string) =>
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-[55] transition-all duration-500"
+  class="site-header fixed top-0 left-0 right-0 z-[55] transition-all duration-500"
 >
   <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between" aria-label="Hauptnavigation">
     <!-- Logo -->
-    <a href="/" class="text-xl font-bold tracking-tight text-white transition-colors duration-300" id="logo-link">
+    <a href="/" class="header-logo text-xl font-bold tracking-tight transition-colors duration-300" id="logo-link">
       {SITE.name}
     </a>
 
@@ -24,11 +24,11 @@ const isActive = (href: string) =>
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'relative text-sm font-medium tracking-wide uppercase transition-colors duration-300',
+              'header-nav-link relative text-sm font-medium tracking-wide uppercase transition-colors duration-300',
               'after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] after:bg-current after:transition-all after:duration-300',
               isActive(item.href)
-                ? 'text-white after:w-full'
-                : 'text-white/80 hover:text-white after:w-0 hover:after:w-full',
+                ? 'after:w-full'
+                : 'after:w-0 hover:after:w-full',
             ]}
           >
             {item.label}
@@ -45,9 +45,9 @@ const isActive = (href: string) =>
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center pointer-events-none" id="bar1"></span>
-      <span class="block w-6 h-[2px] bg-white transition-all duration-300 pointer-events-none" id="bar2"></span>
-      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center pointer-events-none" id="bar3"></span>
+      <span class="header-bar block w-6 h-[2px] transition-all duration-300 origin-center pointer-events-none" id="bar1"></span>
+      <span class="header-bar block w-6 h-[2px] transition-all duration-300 pointer-events-none" id="bar2"></span>
+      <span class="header-bar block w-6 h-[2px] transition-all duration-300 origin-center pointer-events-none" id="bar3"></span>
     </button>
   </nav>
 
@@ -89,15 +89,46 @@ const isActive = (href: string) =>
   </div>
 </header>
 
+<style is:global>
+  /* Default state: transparent header with white text (over hero image) */
+  .site-header .header-logo {
+    color: #ffffff;
+  }
+  .site-header .header-nav-link {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .site-header .header-nav-link:hover {
+    color: #ffffff;
+  }
+  .site-header .header-bar {
+    background-color: #ffffff;
+  }
+
+  /* Scrolled state: white background with dark text */
+  .site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .site-header.scrolled .header-logo {
+    color: #171717;
+  }
+  .site-header.scrolled .header-nav-link {
+    color: #525252;
+  }
+  .site-header.scrolled .header-nav-link:hover {
+    color: #171717;
+  }
+  .site-header.scrolled .header-bar {
+    background-color: #171717;
+  }
+</style>
+
 <script>
   const header = document.getElementById('header')!;
   const btn = document.getElementById('mobile-menu-btn')!;
   const menu = document.getElementById('mobile-menu')!;
   const closeBtn = document.getElementById('mobile-menu-close')!;
-  const bar1 = document.getElementById('bar1')!;
-  const bar2 = document.getElementById('bar2')!;
-  const bar3 = document.getElementById('bar3')!;
-  const logoLink = document.getElementById('logo-link')!;
   let isOpen = false;
 
   function toggleMenu(open: boolean) {
@@ -109,7 +140,6 @@ const isActive = (href: string) =>
       menu.classList.add('opacity-100', 'pointer-events-auto');
       btn.classList.add('invisible');
       document.body.style.overflow = 'hidden';
-      // Focus close button for accessibility
       closeBtn.focus();
     } else {
       menu.classList.add('opacity-0', 'pointer-events-none');
@@ -123,31 +153,9 @@ const isActive = (href: string) =>
   // Scroll effect — add background after scrolling
   function updateHeader() {
     if (window.scrollY > 50) {
-      header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
-      header.classList.remove('bg-transparent');
-      logoLink.classList.remove('text-white');
-      logoLink.classList.add('text-neutral-900');
-      header.querySelectorAll<HTMLAnchorElement>('nav ul a').forEach((a) => {
-        a.classList.remove('text-white/80', 'text-white');
-        a.classList.add('text-neutral-600', 'hover:text-neutral-900');
-      });
-      [bar1, bar2, bar3].forEach((b) => {
-        b.classList.remove('bg-white');
-        b.classList.add('bg-neutral-900');
-      });
+      header.classList.add('scrolled');
     } else if (!isOpen) {
-      header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm');
-      header.classList.add('bg-transparent');
-      logoLink.classList.add('text-white');
-      logoLink.classList.remove('text-neutral-900');
-      header.querySelectorAll<HTMLAnchorElement>('nav ul a').forEach((a) => {
-        a.classList.add('text-white/80');
-        a.classList.remove('text-neutral-600', 'hover:text-neutral-900');
-      });
-      [bar1, bar2, bar3].forEach((b) => {
-        b.classList.add('bg-white');
-        b.classList.remove('bg-neutral-900');
-      });
+      header.classList.remove('scrolled');
     }
   }
 
