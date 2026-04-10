@@ -1,0 +1,33 @@
+QA Testing Notes — April 2026
+================================
+
+BUGS FIXED:
+1. Mobile menu hamburger button not clickable — span elements inside button were
+   intercepting pointer events. Fixed with pointer-events-none on spans.
+2. Mobile menu close (X) button not clickable — hamburger button z-index was covering
+   the close button. Fixed by hiding hamburger when menu is open, using dedicated
+   X close button inside overlay.
+3. Close button position — moved from top-6 to top-8 for better safe area clearance
+   on phones with notches/dynamic island.
+
+ALL TESTS PASSING (7/7):
+- Mobile menu open/close ✓
+- All 18 pages return HTTP 200 ✓
+- Gallery lightbox open/keyboard nav/close ✓
+- Gallery category filters ✓
+- Contact form validation blocks empty submit ✓
+- All internal links from homepage resolve ✓
+- No horizontal overflow on any page at 375px ✓
+
+ITEMS NEEDING YOUR INPUT:
+1. The placeholder images from Unsplash in testimonials/about sections should be
+   replaced with your actual photos.
+2. The impressum.astro has placeholder values:
+   - "DE XXX XXX XXX" for Umsatzsteuer-ID — replace with your real tax ID
+3. Review count in constants.ts (SITE.google.reviewCount = 15) — update to match
+   your actual Google review count.
+4. Facebook link (facebook.com/poseandsaycheese) — verify this is your correct URL
+   or update in src/utils/constants.ts.
+5. Blog post content is sample text — replace with a real wedding story when ready.
+6. Instagram posts are static snapshots — update images in public/images/instagram/
+   when you want to show newer posts.

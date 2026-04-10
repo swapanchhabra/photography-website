@@ -45,9 +45,9 @@ const isActive = (href: string) =>
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center" id="bar1"></span>
-      <span class="block w-6 h-[2px] bg-white transition-all duration-300" id="bar2"></span>
-      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center" id="bar3"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center pointer-events-none" id="bar1"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300 pointer-events-none" id="bar2"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300 origin-center pointer-events-none" id="bar3"></span>
     </button>
   </nav>
 
@@ -61,7 +61,7 @@ const isActive = (href: string) =>
     <!-- Close button inside overlay -->
     <button
       id="mobile-menu-close"
-      class="absolute top-6 right-6 p-3 text-white/80 hover:text-white transition-colors z-[60]"
+      class="absolute top-8 right-6 p-3 text-white/80 hover:text-white transition-colors z-[60] pointer-events-auto"
       aria-label="Menü schließen"
     >
       <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,19 +107,14 @@ const isActive = (href: string) =>
     if (isOpen) {
       menu.classList.remove('opacity-0', 'pointer-events-none');
       menu.classList.add('opacity-100', 'pointer-events-auto');
-      bar1.style.transform = 'rotate(45deg) translate(4px, 4px)';
-      bar2.style.opacity = '0';
-      bar3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+      btn.classList.add('invisible');
       document.body.style.overflow = 'hidden';
-      // Focus first menu link
-      const firstLink = menu.querySelector('a');
-      if (firstLink) firstLink.focus();
+      // Focus close button for accessibility
+      closeBtn.focus();
     } else {
       menu.classList.add('opacity-0', 'pointer-events-none');
       menu.classList.remove('opacity-100', 'pointer-events-auto');
-      bar1.style.transform = '';
-      bar2.style.opacity = '';
-      bar3.style.transform = '';
+      btn.classList.remove('invisible');
       document.body.style.overflow = '';
       btn.focus();
     }
