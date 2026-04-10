@@ -79,6 +79,49 @@ test.describe('Mobile header visibility', () => {
     await expect(menu).toHaveCSS('opacity', '1');
   });
 
+  test('mobile menu has dark background when opened after scrolling', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    // Scroll down so header enters scrolled (white bg) state
+    await page.evaluate(() => window.scrollBy(0, 800));
+    await page.waitForTimeout(500);
+
+    const header = page.locator('#header');
+    await expect(header).toHaveClass(/scrolled/);
+
+    // Open mobile menu
+    const menuBtn = page.locator('#mobile-menu-btn');
+    await menuBtn.click();
+    await page.waitForTimeout(600);
+
+    const menu = page.locator('#mobile-menu');
+    await expect(menu).toHaveCSS('opacity', '1');
+
+    // Menu overlay should have dark background (near-opaque dark color)
+    const menuBg = await menu.evaluate((el) => {
+      const bg = getComputedStyle(el).backgroundColor;
+      // Parse any color format to check darkness and opacity
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+      return { r, g, b, a };
+    });
+    // Should be very dark (r,g,b all < 20) and nearly opaque (a > 240)
+    expect(menuBg.r).toBeLessThan(20);
+    expect(menuBg.g).toBeLessThan(20);
+    expect(menuBg.b).toBeLessThan(20);
+    expect(menuBg.a).toBeGreaterThan(240);
+
+    // Header should have menu-open class (transparent, not white)
+    await expect(header).toHaveClass(/menu-open/);
+    const headerBg = await header.evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(headerBg).toBe('rgba(0, 0, 0, 0)');
+  });
+
   test('header bars (hamburger icon) change color on scroll', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');

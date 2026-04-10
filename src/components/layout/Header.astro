@@ -50,44 +50,44 @@ const isActive = (href: string) =>
       <span class="header-bar block w-6 h-[2px] transition-all duration-300 origin-center pointer-events-none" id="bar3"></span>
     </button>
   </nav>
-
-  <!-- Mobile Menu Overlay -->
-  <div
-    id="mobile-menu"
-    role="dialog"
-    aria-label="Navigation"
-    class="fixed inset-0 z-50 bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden pt-[env(safe-area-inset-top)]"
-  >
-    <!-- Close button inside overlay -->
-    <button
-      id="mobile-menu-close"
-      class="absolute top-8 right-6 p-3 text-white/80 hover:text-white transition-colors z-[60] pointer-events-auto"
-      aria-label="Menü schließen"
-    >
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-    <nav aria-label="Mobile Navigation">
-      <ul class="flex flex-col items-center gap-8" role="list">
-        {NAV_ITEMS.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-              class:list={[
-                'text-2xl font-light tracking-widest uppercase transition-colors duration-300',
-                isActive(item.href) ? 'text-accent' : 'text-white/90 hover:text-white',
-              ]}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
 </header>
+
+<!-- Mobile Menu Overlay (outside header to avoid iOS nested fixed positioning issues) -->
+<div
+  id="mobile-menu"
+  role="dialog"
+  aria-label="Navigation"
+  class="fixed inset-0 z-[56] bg-neutral-950/98 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden pt-[env(safe-area-inset-top)]"
+>
+  <!-- Close button inside overlay -->
+  <button
+    id="mobile-menu-close"
+    class="absolute top-8 right-6 p-3 text-white/80 hover:text-white transition-colors z-[60]"
+    aria-label="Menü schließen"
+  >
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+  <nav aria-label="Mobile Navigation">
+    <ul class="flex flex-col items-center gap-8" role="list">
+      {NAV_ITEMS.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'text-2xl font-light tracking-widest uppercase transition-colors duration-300',
+              isActive(item.href) ? 'text-accent' : 'text-white/90 hover:text-white',
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
 
 <style is:global>
   /* Default state: transparent header with white text (over hero image) */
@@ -122,6 +122,19 @@ const isActive = (href: string) =>
   .site-header.scrolled .header-bar {
     background-color: #171717;
   }
+
+  /* When mobile menu is open, reset header to transparent so white bg doesn't bleed through */
+  .site-header.menu-open {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+  .site-header.menu-open .header-logo {
+    color: #ffffff !important;
+  }
+  .site-header.menu-open .header-bar {
+    background-color: #ffffff !important;
+  }
 </style>
 
 <script>
@@ -139,12 +152,14 @@ const isActive = (href: string) =>
     if (isOpen) {
       menu.classList.remove('opacity-0', 'pointer-events-none');
       menu.classList.add('opacity-100', 'pointer-events-auto');
+      header.classList.add('menu-open');
       btn.classList.add('invisible');
       document.body.style.overflow = 'hidden';
       closeBtn.focus();
     } else {
       menu.classList.add('opacity-0', 'pointer-events-none');
       menu.classList.remove('opacity-100', 'pointer-events-auto');
+      header.classList.remove('menu-open');
       btn.classList.remove('invisible');
       document.body.style.overflow = '';
     }
@@ -170,6 +185,7 @@ const isActive = (href: string) =>
     isOpen = false;
     menu.classList.add('opacity-0', 'pointer-events-none');
     menu.classList.remove('opacity-100', 'pointer-events-auto');
+    header.classList.remove('menu-open');
     btn.classList.remove('invisible');
     document.body.style.overflow = '';
 

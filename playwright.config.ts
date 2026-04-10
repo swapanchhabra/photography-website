@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: './tests',
   timeout: 30000,
   use: {
-    baseURL: 'http://localhost:4322',
+    baseURL: 'http://localhost:4321',
   },
   projects: [
     {
