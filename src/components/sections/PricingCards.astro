@@ -1,9 +1,16 @@
 ---
+import type { Package } from '../../data/packages';
 import { PACKAGES } from '../../data/packages';
+
+interface Props {
+  packages?: Package[];
+}
+
+const { packages = PACKAGES } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-  {PACKAGES.map((pkg) => (
+  {packages.map((pkg) => (
     <div
       class:list={[
         'relative flex flex-col p-8 lg:p-10 transition-all duration-500 hover:-translate-y-1',

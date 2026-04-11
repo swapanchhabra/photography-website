@@ -31,9 +31,9 @@ export const SITE = {
 export const NAV_ITEMS = [
   { label: 'Startseite', href: '/' },
   { label: 'Leistungen', href: '/leistungen' },
+  { label: 'Business Portraits', href: '/business-portraits' },
   { label: 'Preise', href: '/preise' },
   { label: 'Galerie', href: '/galerie' },
   { label: 'Über mich', href: '/ueber-mich' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Kontakt', href: '/kontakt' },
 ] as const;

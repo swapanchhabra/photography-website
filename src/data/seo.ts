@@ -5,14 +5,19 @@ export const SEO = {
       'Euer Hochzeitsfotograf in Karlsruhe und Ettlingen. Authentische, emotionale Hochzeitsfotos — echt statt perfekt. Eure schönsten Momente für immer festgehalten.',
   },
   leistungen: {
-    title: 'Hochzeitsfotografie Leistungen | Pose and Say Cheese Photography Karlsruhe',
+    title: 'Leistungen — Hochzeitsfotografie & Business Portraits | Pose and Say Cheese Photography',
     description:
-      'Von Getting Ready bis zur Party — entdeckt meine Hochzeitsfotografie-Leistungen. Liebevolle Begleitung eures großen Tages in Karlsruhe und Umgebung.',
+      'Hochzeitsfotografie und professionelle Business Portraits in Karlsruhe und Ettlingen. Von Getting Ready bis zur Party — und Bewerbungsfotos im Studio.',
+  },
+  businessPortraits: {
+    title: 'Business Portraits & Bewerbungsfotos Ettlingen | Pose and Say Cheese Photography',
+    description:
+      'Professionelle Business Portraits und Bewerbungsfotos in Ettlingen und Karlsruhe. Studio und Outdoor. Ab 89 €. Für LinkedIn, Bewerbungen und Firmenwebsites.',
   },
   preise: {
-    title: 'Hochzeitsfotograf Preise | Pose and Say Cheese Photography Karlsruhe',
+    title: 'Preise — Hochzeitsfotografie & Business Portraits | Pose and Say Cheese Photography',
     description:
-      'Transparente Preise für Hochzeitsfotografie in Karlsruhe. Findet das passende Paket für euren besonderen Tag — individuell anpassbar.',
+      'Transparente Preise für Hochzeitsfotografie und Business Portraits in Karlsruhe. Hochzeiten ab 890 €, Bewerbungsfotos ab 89 €.',
   },
   galerie: {
     title: 'Hochzeitsfotos Galerie | Pose and Say Cheese Photography Karlsruhe',

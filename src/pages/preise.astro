@@ -6,6 +6,7 @@ import FAQAccordion from '../components/sections/FAQAccordion.astro';
 import CTABanner from '../components/sections/CTABanner.astro';
 import { SEO } from '../data/seo';
 import { FAQ_ITEMS } from '../data/faq';
+import { WEDDING_PACKAGES, PORTRAIT_PACKAGES } from '../data/packages';
 import { breadcrumbSchema } from '../utils/schema';
 import { SITE } from '../utils/constants';
 
@@ -20,23 +21,24 @@ const pricingFAQ = FAQ_ITEMS.filter((item) => item.category === 'Preise & Zahlun
 <BaseLayout title={SEO.preise.title} description={SEO.preise.description} schema={schema}>
   <HeroSection
     title="Preise"
-    subtitle="Transparente Pakete für jeden Hochzeitstag — individuell anpassbar."
+    subtitle="Transparente Pakete für Hochzeiten und Business Portraits."
     image="/images/hero/home-hero.jpg"
   />
 
-  <!-- Pricing Cards -->
+  <!-- Wedding Packages -->
   <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-6xl px-6">
       <div class="text-center mb-16" data-animate>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif italic tracking-wide text-neutral-700">
-          Unsere Pakete
+        <div class="section-divider mb-8"></div>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl italic tracking-wide">
+          Hochzeitsfotografie
         </h2>
-        <p class="mt-4 text-lg text-neutral-500 font-light max-w-2xl mx-auto">
+        <p class="mt-4 text-neutral-500 max-w-2xl mx-auto">
           Wählt das Paket, das zu euch passt — oder lasst euch ein individuelles Angebot erstellen.
         </p>
       </div>
 
-      <PricingCards />
+      <PricingCards packages={WEDDING_PACKAGES} />
 
       <p class="mt-12 text-center text-sm text-neutral-500 italic" data-animate>
         Jedes Paar ist einzigartig. Gerne erstelle ich ein maßgeschneidertes Paket nach euren Wünschen.
@@ -44,11 +46,32 @@ const pricingFAQ = FAQ_ITEMS.filter((item) => item.category === 'Preise & Zahlun
     </div>
   </section>
 
-  <!-- Pricing FAQ -->
+  <!-- Business Portrait Packages -->
   <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <div class="section-divider mb-8"></div>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl italic tracking-wide">
+          Business Portraits
+        </h2>
+        <p class="mt-4 text-neutral-500 max-w-2xl mx-auto">
+          Professionelle Porträts für Bewerbungen, LinkedIn und eure Website.
+        </p>
+      </div>
+
+      <PricingCards packages={PORTRAIT_PACKAGES} />
+
+      <p class="mt-12 text-center text-sm text-neutral-500 italic" data-animate>
+        Weitere Bilder je 25 €. Studierende und Auszubildende erhalten 15 % Rabatt. Teamshootings auf Anfrage.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing FAQ -->
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-3xl px-6">
       <div class="text-center mb-12" data-animate>
-        <h2 class="text-3xl sm:text-4xl font-serif italic tracking-wide text-neutral-700">Fragen zu den Preisen</h2>
+        <h2 class="font-serif text-3xl sm:text-4xl italic tracking-wide">Fragen zu den Preisen</h2>
       </div>
       <FAQAccordion items={pricingFAQ} />
     </div>

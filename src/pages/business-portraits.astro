@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import PricingCards from '../components/sections/PricingCards.astro';
+import CTABanner from '../components/sections/CTABanner.astro';
+import { SEO } from '../data/seo';
+import { PORTRAIT_PACKAGES } from '../data/packages';
+import { breadcrumbSchema } from '../utils/schema';
+import { SITE } from '../utils/constants';
+
+const schema = breadcrumbSchema([
+  { name: 'Startseite', url: SITE.url },
+  { name: 'Business Portraits', url: `${SITE.url}/business-portraits` },
+]);
+---
+
+<BaseLayout title={SEO.businessPortraits.title} description={SEO.businessPortraits.description} schema={schema}>
+  <HeroSection
+    title="Business Portraits"
+    subtitle="Professionelle Porträtfotografie in Ettlingen & Karlsruhe"
+    image="/images/hero/home-hero.jpg"
+  />
+
+  <!-- Intro -->
+  <section class="py-20 lg:py-28 bg-parchment">
+    <div class="mx-auto max-w-3xl px-6 text-center" data-animate>
+      <h2 class="font-serif text-3xl sm:text-4xl italic tracking-wide">Der erste Eindruck zählt</h2>
+      <p class="mt-6 text-neutral-500 leading-relaxed">
+        Ob für LinkedIn, eure Firmenwebsite oder die nächste Bewerbung — ein professionelles Porträt
+        öffnet Türen. In meinem Studio in Ettlingen oder bei einem Outdoor-Shooting in der Umgebung
+        entstehen Bilder, die eure Persönlichkeit authentisch zeigen.
+      </p>
+    </div>
+  </section>
+
+  <!-- What I Offer -->
+  <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl italic tracking-wide">
+          Mein Angebot
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          {
+            title: 'Bewerbungsfotos',
+            description: 'Professionelle Bewerbungsbilder, die überzeugen. Perfekt für Karrierestarter, Jobwechsler und Studierende. Schnell, unkompliziert und auf den Punkt.',
+          },
+          {
+            title: 'Business Portraits',
+            description: 'Moderne Businessfotos für LinkedIn, Xing, eure Firmenwebsite oder Social Media. Im Studio oder outdoor — authentisch und professionell.',
+          },
+          {
+            title: 'Team- & Firmenfotos',
+            description: 'Einheitliche Porträts für euer gesamtes Team. Ich komme auch gerne zu euch ins Büro. Fragt einfach nach einem individuellen Angebot.',
+          },
+        ].map((service) => (
+          <div class="bg-parchment p-8 lg:p-10 border border-neutral-200 transition-all duration-300 hover:border-neutral-400" data-animate>
+            <h3 class="font-serif text-xl italic tracking-wide">{service.title}</h3>
+            <p class="mt-3 text-sm text-neutral-500 leading-relaxed">{service.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio & Outdoor -->
+  <section class="py-20 lg:py-28 bg-parchment">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="font-serif text-3xl sm:text-4xl italic tracking-wide">Studio & Outdoor</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+        <div data-animate>
+          <h3 class="font-serif text-xl italic tracking-wide mb-4">Im Studio</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">
+            Mein Studio in Ettlingen bietet eine professionelle, ruhige Atmosphäre für
+            klassische Porträts. Mit verschiedenen Hintergründen und professioneller Beleuchtung
+            entstehen hier zeitlose Businessbilder, die auf jeder Plattform wirken.
+          </p>
+        </div>
+        <div data-animate>
+          <h3 class="font-serif text-xl italic tracking-wide mb-4">Outdoor</h3>
+          <p class="text-sm text-neutral-500 leading-relaxed">
+            Für natürlichere, dynamischere Porträts biete ich Outdoor-Shootings in Ettlingen
+            und Umgebung an. Die Altstadt, Parks oder urbane Locations — gemeinsam finden wir
+            den perfekten Hintergrund für eure Persönlichkeit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl italic tracking-wide">Pakete & Preise</h2>
+        <p class="mt-4 text-neutral-500 max-w-2xl mx-auto">
+          Wählt das Paket, das zu euch passt.
+        </p>
+      </div>
+
+      <PricingCards packages={PORTRAIT_PACKAGES} />
+
+      <p class="mt-12 text-center text-sm text-neutral-500 italic" data-animate>
+        Weitere Bilder je 25 €. Studierende und Auszubildende erhalten 15 % Rabatt.
+        Teamshootings auf Anfrage.
+      </p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-20 lg:py-28 bg-parchment">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="font-serif text-3xl sm:text-4xl italic tracking-wide">So läuft es ab</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {[
+          { step: '01', title: 'Anfrage', desc: 'Schreibt mir und nennt euren Wunschtermin.' },
+          { step: '02', title: 'Beratung', desc: 'Wir besprechen Outfit, Style und Ziel der Bilder.' },
+          { step: '03', title: 'Shooting', desc: 'Entspanntes Shooting — im Studio oder outdoor.' },
+          { step: '04', title: 'Eure Bilder', desc: 'Innerhalb von 5 Werktagen erhaltet ihr eure Fotos.' },
+        ].map((item) => (
+          <div class="text-center" data-animate>
+            <span class="font-serif text-4xl text-accent">{item.step}</span>
+            <h3 class="mt-3 font-serif text-lg italic tracking-wide">{item.title}</h3>
+            <p class="mt-2 text-sm text-neutral-500">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Bereit für euer neues Profilbild?"
+    subtitle="Schnelle Termine, professionelle Ergebnisse."
+    buttonLabel="Jetzt Termin anfragen"
+    buttonHref="/kontakt"
+  />
+</BaseLayout>
