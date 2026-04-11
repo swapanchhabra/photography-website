@@ -42,23 +42,23 @@ const schema = breadcrumbSchema([
             </div>
             <div>
               <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">E-Mail</h3>
-              <a href={`mailto:${SITE.email}`} class="text-neutral-700 hover:text-neutral-900 transition-colors">
+              <a href={`mailto:${SITE.email}`} class="inline-block py-2 text-neutral-700 hover:text-neutral-900 transition-colors min-h-[44px]">
                 {SITE.email}
               </a>
             </div>
             <div>
               <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">Telefon</h3>
-              <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="text-neutral-700 hover:text-neutral-900 transition-colors">
+              <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="inline-block py-2 text-neutral-700 hover:text-neutral-900 transition-colors min-h-[44px]">
                 {SITE.phone}
               </a>
             </div>
             <div>
               <h3 class="text-sm uppercase tracking-widest text-neutral-400 mb-2">Social Media</h3>
               <div class="flex gap-4">
-                <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-neutral-900 transition-colors">
+                <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" class="inline-block py-2 text-neutral-500 hover:text-neutral-900 transition-colors min-h-[44px]">
                   Instagram
                 </a>
-                <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-neutral-900 transition-colors">
+                <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" class="inline-block py-2 text-neutral-500 hover:text-neutral-900 transition-colors min-h-[44px]">
                   Facebook
                 </a>
               </div>
