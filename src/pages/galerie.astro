@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/sections/HeroSection.astro';
 import PhotoCarousel from '../components/sections/PhotoCarousel.astro';
 import GalleryGrid from '../components/sections/GalleryGrid.astro';
 import CTABanner from '../components/sections/CTABanner.astro';
@@ -18,21 +17,14 @@ const carouselImages = GALLERY_IMAGES.filter((img) => img.width > img.height).sl
 ---
 
 <BaseLayout title={SEO.galerie.title} description={SEO.galerie.description} schema={schema}>
-  <HeroSection
+  <!-- Hero Carousel -->
+  <PhotoCarousel
+    images={carouselImages}
+    interval={5000}
+    hero
     title="Galerie"
-    subtitle="Lassen Sie sich von echten Hochzeitsmomenten inspirieren."
-    image="/images/hero/gallery-hero.jpg"
+    subtitle="Echte Hochzeitsmomente, authentisch festgehalten"
   />
-
-  <!-- Featured Carousel -->
-  <section class="py-16 lg:py-24 bg-neutral-50">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="text-center mb-10" data-animate>
-        <h2 class="font-serif text-3xl sm:text-4xl italic tracking-wide">Ausgewählte Momente</h2>
-      </div>
-      <PhotoCarousel images={carouselImages} interval={5000} />
-    </div>
-  </section>
 
   <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-7xl px-6">

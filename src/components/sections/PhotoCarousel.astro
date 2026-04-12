@@ -4,20 +4,30 @@ import type { GalleryImage } from '../../data/gallery';
 interface Props {
   images: GalleryImage[];
   interval?: number;
+  hero?: boolean;
+  title?: string;
+  subtitle?: string;
 }
 
-const { images, interval = 4000 } = Astro.props;
+const { images, interval = 4000, hero = false, title, subtitle } = Astro.props;
 ---
 
-<div
-  class="photo-carousel relative w-full overflow-hidden"
+<section
+  class:list={[
+    'photo-carousel relative w-full overflow-hidden',
+    hero ? 'min-h-[60vh] lg:min-h-[70vh]' : '',
+  ]}
   data-interval={interval}
+  data-hero={hero ? '' : undefined}
   role="region"
-  aria-label="Bildergalerie"
+  aria-label={title || 'Bildergalerie'}
   aria-roledescription="carousel"
 >
   <!-- Slides -->
-  <div class="relative aspect-[3/2] sm:aspect-[16/9] lg:aspect-[21/9] bg-neutral-200">
+  <div class:list={[
+    'relative bg-neutral-200',
+    hero ? 'h-full absolute inset-0' : 'aspect-[3/2] sm:aspect-[16/9] lg:aspect-[21/9]',
+  ]}>
     {images.map((img, i) => (
       <div
         class:list={[
@@ -40,10 +50,30 @@ const { images, interval = 4000 } = Astro.props;
         />
       </div>
     ))}
+    {hero && <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/40" aria-hidden="true"></div>}
   </div>
 
+  <!-- Hero text overlay -->
+  {hero && title && (
+    <div class="absolute inset-0 z-10 flex items-center justify-center">
+      <div class="text-center px-6 max-w-4xl mx-auto">
+        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight text-white tracking-wide italic animate-fade-in-up">
+          {title}
+        </h1>
+        {subtitle && (
+          <p class="mt-8 text-sm sm:text-base lg:text-lg text-white/80 tracking-[0.2em] uppercase animate-fade-in-up animate-delay-200">
+            {subtitle}
+          </p>
+        )}
+      </div>
+    </div>
+  )}
+
   <!-- Navigation dots -->
-  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2.5" role="tablist" aria-label="Bilder auswählen">
+  <div class:list={[
+    'absolute left-1/2 -translate-x-1/2 flex gap-2.5 z-20',
+    hero ? 'bottom-8' : 'bottom-4',
+  ]} role="tablist" aria-label="Bilder auswählen">
     {images.map((_, i) => (
       <button
         type="button"
@@ -62,7 +92,7 @@ const { images, interval = 4000 } = Astro.props;
   <!-- Prev/Next buttons -->
   <button
     type="button"
-    class="carousel-prev absolute left-3 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors"
+    class="carousel-prev absolute left-3 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors z-20"
     aria-label="Vorheriges Bild"
   >
     <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
@@ -71,14 +101,14 @@ const { images, interval = 4000 } = Astro.props;
   </button>
   <button
     type="button"
-    class="carousel-next absolute right-3 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors"
+    class="carousel-next absolute right-3 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors z-20"
     aria-label="Nächstes Bild"
   >
     <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
     </svg>
   </button>
-</div>
+</section>
 
 <script>
   const SWIPE_THRESHOLD_PX = 50;
