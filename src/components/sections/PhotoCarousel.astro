@@ -25,8 +25,8 @@ const { images, interval = 4000, hero = false, title, subtitle } = Astro.props;
 >
   <!-- Slides -->
   <div class:list={[
-    'relative bg-neutral-200',
-    hero ? 'h-full absolute inset-0' : 'aspect-[3/2] sm:aspect-[16/9] lg:aspect-[21/9]',
+    'bg-neutral-200',
+    hero ? 'absolute inset-0' : 'relative aspect-[3/2] sm:aspect-[16/9] lg:aspect-[21/9]',
   ]}>
     {images.map((img, i) => (
       <div
