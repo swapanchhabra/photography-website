@@ -1,0 +1,161 @@
+---
+import type { GalleryImage } from '../../data/gallery';
+
+interface Props {
+  images: GalleryImage[];
+  interval?: number;
+}
+
+const { images, interval = 4000 } = Astro.props;
+---
+
+<div
+  class="photo-carousel relative w-full overflow-hidden"
+  data-interval={interval}
+  role="region"
+  aria-label="Bildergalerie"
+  aria-roledescription="carousel"
+>
+  <!-- Slides -->
+  <div class="relative aspect-[3/2] sm:aspect-[16/9] lg:aspect-[21/9] bg-neutral-200">
+    {images.map((img, i) => (
+      <div
+        class:list={[
+          'carousel-slide absolute inset-0 transition-opacity duration-1000',
+          i === 0 ? 'opacity-100' : 'opacity-0',
+        ]}
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`Bild ${i + 1} von ${images.length}`}
+        aria-hidden={i !== 0 ? 'true' : undefined}
+      >
+        <img
+          src={img.src}
+          alt={img.alt}
+          width={img.width}
+          height={img.height}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Navigation dots -->
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2.5" role="tablist" aria-label="Bilder auswählen">
+    {images.map((_, i) => (
+      <button
+        type="button"
+        class:list={[
+          'carousel-dot w-2 h-2 rounded-full transition-all duration-300',
+          i === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80',
+        ]}
+        role="tab"
+        aria-selected={i === 0 ? 'true' : 'false'}
+        aria-label={`Bild ${i + 1}`}
+        data-index={i}
+      />
+    ))}
+  </div>
+
+  <!-- Prev/Next buttons -->
+  <button
+    type="button"
+    class="carousel-prev absolute left-3 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors"
+    aria-label="Vorheriges Bild"
+  >
+    <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <button
+    type="button"
+    class="carousel-next absolute right-3 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-white transition-colors"
+    aria-label="Nächstes Bild"
+  >
+    <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  function initCarousels() {
+    document.querySelectorAll<HTMLElement>('.photo-carousel').forEach((carousel) => {
+      const slides = carousel.querySelectorAll<HTMLElement>('.carousel-slide');
+      const dots = carousel.querySelectorAll<HTMLElement>('.carousel-dot');
+      const prevBtn = carousel.querySelector('.carousel-prev');
+      const nextBtn = carousel.querySelector('.carousel-next');
+      const interval = Number(carousel.dataset.interval) || 4000;
+      let current = 0;
+      let timer: ReturnType<typeof setInterval>;
+
+      function goTo(index: number) {
+        slides[current].classList.replace('opacity-100', 'opacity-0');
+        slides[current].setAttribute('aria-hidden', 'true');
+        dots[current].classList.replace('bg-white', 'bg-white/50');
+        dots[current].classList.remove('scale-125');
+        dots[current].setAttribute('aria-selected', 'false');
+
+        current = (index + slides.length) % slides.length;
+
+        slides[current].classList.replace('opacity-0', 'opacity-100');
+        slides[current].removeAttribute('aria-hidden');
+        dots[current].classList.replace('bg-white/50', 'bg-white');
+        dots[current].classList.add('scale-125');
+        dots[current].setAttribute('aria-selected', 'true');
+      }
+
+      function startAutoplay() {
+        timer = setInterval(() => goTo(current + 1), interval);
+      }
+
+      function resetAutoplay() {
+        clearInterval(timer);
+        startAutoplay();
+      }
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          goTo(Number(dot.dataset.index));
+          resetAutoplay();
+        });
+      });
+
+      prevBtn?.addEventListener('click', () => {
+        goTo(current - 1);
+        resetAutoplay();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        goTo(current + 1);
+        resetAutoplay();
+      });
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', () => clearInterval(timer));
+      carousel.addEventListener('mouseleave', startAutoplay);
+
+      // Touch swipe
+      let touchStartX = 0;
+      carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        clearInterval(timer);
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          goTo(diff > 0 ? current + 1 : current - 1);
+        }
+        startAutoplay();
+      });
+
+      startAutoplay();
+    });
+  }
+
+  initCarousels();
+  document.addEventListener('astro:after-swap', initCarousels);
+</script>
