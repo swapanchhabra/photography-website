@@ -53,13 +53,15 @@ const allSchemas = schema
 
     <!-- Scroll animation observer — re-runs after View Transitions -->
     <script>
+      let scrollObserver: IntersectionObserver | null = null;
       function initAnimations() {
-        const observer = new IntersectionObserver(
+        scrollObserver?.disconnect();
+        scrollObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 entry.target.classList.add('animate-fade-in-up');
-                observer.unobserve(entry.target);
+                scrollObserver?.unobserve(entry.target);
               }
             });
           },
@@ -67,7 +69,7 @@ const allSchemas = schema
         );
 
         document.querySelectorAll('[data-animate]').forEach((el) => {
-          observer.observe(el);
+          scrollObserver!.observe(el);
         });
       }
 

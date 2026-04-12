@@ -1,12 +1,12 @@
 ---
 import type { Package } from '../../data/packages';
-import { PACKAGES } from '../../data/packages';
+import { WEDDING_PACKAGES } from '../../data/packages';
 
 interface Props {
   packages?: Package[];
 }
 
-const { packages = PACKAGES } = Astro.props;
+const { packages = WEDDING_PACKAGES } = Astro.props;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -38,7 +38,7 @@ const { packages = PACKAGES } = Astro.props;
       <ul class="mt-8 space-y-3 flex-1">
         {pkg.features.map((feature) => (
           <li class="flex items-start gap-3 text-sm">
-            <svg class:list={['w-5 h-5 flex-shrink-0 mt-0.5', pkg.highlighted ? 'text-accent' : 'text-accent']} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
             </svg>
             <span>{feature}</span>

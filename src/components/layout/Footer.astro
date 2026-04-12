@@ -1,5 +1,8 @@
 ---
 import { SITE, NAV_ITEMS } from '../../utils/constants';
+
+const headingClass = 'font-serif text-sm italic tracking-wider text-neutral-700 mb-4';
+const linkClass = 'text-sm hover:text-neutral-700 transition-colors duration-300';
 ---
 
 <footer class="bg-warm-cream text-neutral-500">
@@ -16,13 +19,13 @@ import { SITE, NAV_ITEMS } from '../../utils/constants';
 
       <!-- Navigation -->
       <div>
-        <h4 class="font-serif text-sm italic tracking-wider text-neutral-700 mb-4">Navigation</h4>
+        <h4 class={headingClass}>Navigation</h4>
         <ul class="space-y-2">
           {NAV_ITEMS.map((item) => (
             <li>
               <a
                 href={item.href}
-                class="text-sm hover:text-neutral-700 transition-colors duration-300"
+                class={linkClass}
               >
                 {item.label}
               </a>
@@ -33,20 +36,20 @@ import { SITE, NAV_ITEMS } from '../../utils/constants';
 
       <!-- Locations (SEO internal links) -->
       <div>
-        <h4 class="font-serif text-sm italic tracking-wider text-neutral-700 mb-4">Locations</h4>
+        <h4 class={headingClass}>Locations</h4>
         <ul class="space-y-2">
-          <li><a href="/hochzeitsfotograf-karlsruhe" class="text-sm hover:text-neutral-700 transition-colors duration-300">Hochzeitsfotograf Karlsruhe</a></li>
-          <li><a href="/hochzeitsfotograf-heidelberg" class="text-sm hover:text-neutral-700 transition-colors duration-300">Hochzeitsfotograf Heidelberg</a></li>
-          <li><a href="/hochzeitsfotograf-mannheim" class="text-sm hover:text-neutral-700 transition-colors duration-300">Hochzeitsfotograf Mannheim</a></li>
-          <li><a href="/hochzeitsfotograf-baden-baden" class="text-sm hover:text-neutral-700 transition-colors duration-300">Hochzeitsfotograf Baden-Baden</a></li>
-          <li><a href="/hochzeitsfotograf-pforzheim" class="text-sm hover:text-neutral-700 transition-colors duration-300">Hochzeitsfotograf Pforzheim</a></li>
-          <li><a href="/hochzeitsfotograf-rastatt" class="text-sm hover:text-neutral-700 transition-colors duration-300">Hochzeitsfotograf Rastatt</a></li>
+          <li><a href="/hochzeitsfotograf-karlsruhe" class={linkClass}>Hochzeitsfotograf Karlsruhe</a></li>
+          <li><a href="/hochzeitsfotograf-heidelberg" class={linkClass}>Hochzeitsfotograf Heidelberg</a></li>
+          <li><a href="/hochzeitsfotograf-mannheim" class={linkClass}>Hochzeitsfotograf Mannheim</a></li>
+          <li><a href="/hochzeitsfotograf-baden-baden" class={linkClass}>Hochzeitsfotograf Baden-Baden</a></li>
+          <li><a href="/hochzeitsfotograf-pforzheim" class={linkClass}>Hochzeitsfotograf Pforzheim</a></li>
+          <li><a href="/hochzeitsfotograf-rastatt" class={linkClass}>Hochzeitsfotograf Rastatt</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="font-serif text-sm italic tracking-wider text-neutral-700 mb-4">Kontakt</h4>
+        <h4 class={headingClass}>Kontakt</h4>
         <address class="not-italic text-sm space-y-2">
           <p>{SITE.address.street}</p>
           <p>{SITE.address.postalCode} {SITE.address.city}</p>

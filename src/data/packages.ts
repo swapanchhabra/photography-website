@@ -102,5 +102,3 @@ export const PORTRAIT_PACKAGES: Package[] = [
   },
 ];
 
-// Keep backwards compat for existing PricingCards component
-export const PACKAGES = WEDDING_PACKAGES;

@@ -118,16 +118,16 @@ const isActive = (href: string) =>
     backdrop-filter: blur(12px);
   }
   .site-header.scrolled .header-logo {
-    color: #564f4a;
+    color: var(--color-neutral-700);
   }
   .site-header.scrolled .header-nav-link {
-    color: #8a8380;
+    color: var(--color-neutral-500);
   }
   .site-header.scrolled .header-nav-link:hover {
-    color: #564f4a;
+    color: var(--color-neutral-700);
   }
   .site-header.scrolled .header-bar {
-    background-color: #564f4a;
+    background-color: var(--color-neutral-700);
   }
 
   /* When mobile menu is open, reset header to transparent */
@@ -137,10 +137,10 @@ const isActive = (href: string) =>
     box-shadow: none !important;
   }
   .site-header.menu-open .header-logo {
-    color: #564f4a !important;
+    color: var(--color-neutral-700) !important;
   }
   .site-header.menu-open .header-bar {
-    background-color: #564f4a !important;
+    background-color: var(--color-neutral-700) !important;
   }
 </style>
 
@@ -151,6 +151,7 @@ const isActive = (href: string) =>
   let closeBtn: HTMLElement;
   let isOpen = false;
   let hasHero = false;
+  let isScrolled = false;
 
   function toggleMenu(open: boolean) {
     isOpen = open;
@@ -173,7 +174,10 @@ const isActive = (href: string) =>
   }
 
   function updateHeader() {
-    if (!hasHero || window.scrollY > 50) {
+    const shouldScroll = !hasHero || window.scrollY > 50;
+    if (shouldScroll === isScrolled) return;
+    isScrolled = shouldScroll;
+    if (shouldScroll) {
       header.classList.add('scrolled');
     } else if (!isOpen) {
       header.classList.remove('scrolled');
@@ -188,6 +192,7 @@ const isActive = (href: string) =>
     hasHero = !!document.querySelector('[data-hero]');
 
     isOpen = false;
+    isScrolled = false;
     menu.classList.add('opacity-0', 'pointer-events-none');
     menu.classList.remove('opacity-100', 'pointer-events-auto');
     header.classList.remove('menu-open');
