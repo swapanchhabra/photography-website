@@ -81,24 +81,36 @@ const { images, interval = 4000 } = Astro.props;
 </div>
 
 <script>
+  const SWIPE_THRESHOLD_PX = 50;
+  let cleanups: (() => void)[] = [];
+
   function initCarousels() {
+    cleanups.forEach((fn) => fn());
+    cleanups = [];
+
     document.querySelectorAll<HTMLElement>('.photo-carousel').forEach((carousel) => {
+      if (carousel.dataset.initialized) return;
+      carousel.dataset.initialized = 'true';
+
       const slides = carousel.querySelectorAll<HTMLElement>('.carousel-slide');
       const dots = carousel.querySelectorAll<HTMLElement>('.carousel-dot');
-      const prevBtn = carousel.querySelector('.carousel-prev');
-      const nextBtn = carousel.querySelector('.carousel-next');
       const interval = Number(carousel.dataset.interval) || 4000;
+      const ac = new AbortController();
+      const { signal } = ac;
       let current = 0;
       let timer: ReturnType<typeof setInterval>;
 
       function goTo(index: number) {
+        const next = (index + slides.length) % slides.length;
+        if (next === current) return;
+
         slides[current].classList.replace('opacity-100', 'opacity-0');
         slides[current].setAttribute('aria-hidden', 'true');
         dots[current].classList.replace('bg-white', 'bg-white/50');
         dots[current].classList.remove('scale-125');
         dots[current].setAttribute('aria-selected', 'false');
 
-        current = (index + slides.length) % slides.length;
+        current = next;
 
         slides[current].classList.replace('opacity-0', 'opacity-100');
         slides[current].removeAttribute('aria-hidden');
@@ -120,39 +132,43 @@ const { images, interval = 4000 } = Astro.props;
         dot.addEventListener('click', () => {
           goTo(Number(dot.dataset.index));
           resetAutoplay();
-        });
+        }, { signal });
       });
 
-      prevBtn?.addEventListener('click', () => {
+      carousel.querySelector('.carousel-prev')?.addEventListener('click', () => {
         goTo(current - 1);
         resetAutoplay();
-      });
+      }, { signal });
 
-      nextBtn?.addEventListener('click', () => {
+      carousel.querySelector('.carousel-next')?.addEventListener('click', () => {
         goTo(current + 1);
         resetAutoplay();
-      });
+      }, { signal });
 
-      // Pause on hover
-      carousel.addEventListener('mouseenter', () => clearInterval(timer));
-      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('mouseenter', () => clearInterval(timer), { signal });
+      carousel.addEventListener('mouseleave', startAutoplay, { signal });
 
-      // Touch swipe
       let touchStartX = 0;
       carousel.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;
         clearInterval(timer);
-      }, { passive: true });
+      }, { passive: true, signal });
 
       carousel.addEventListener('touchend', (e) => {
         const diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) {
+        if (Math.abs(diff) > SWIPE_THRESHOLD_PX) {
           goTo(diff > 0 ? current + 1 : current - 1);
         }
         startAutoplay();
-      });
+      }, { passive: true, signal });
 
       startAutoplay();
+
+      cleanups.push(() => {
+        clearInterval(timer);
+        ac.abort();
+        delete carousel.dataset.initialized;
+      });
     });
   }
 
