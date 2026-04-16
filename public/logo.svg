@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Aperture symbol -->
+  <g opacity="0.85">
+    <path d="M 400.0,20.0 Q 410.9,25.3 421.9,30.5 L 404.6,38.4 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 421.9,30.5 Q 424.6,42.4 427.3,54.2 L 410.4,45.6 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 427.3,54.2 Q 419.7,63.7 412.1,73.2 L 408.3,54.6 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 412.1,73.2 Q 400.0,73.2 387.9,73.2 L 400.0,58.6 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 387.9,73.2 Q 380.3,63.7 372.7,54.2 L 391.7,54.6 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 372.7,54.2 Q 375.4,42.4 378.1,30.5 L 389.6,45.6 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 378.1,30.5 Q 389.1,25.3 400.0,20.0 L 395.4,38.4 Z" fill="#c9a96e" opacity="0.5" />
+    <circle cx="400.0" cy="48" r="9.8" fill="none" stroke="#c9a96e" stroke-width="0.8" opacity="0.6" />
+    <circle cx="400.0" cy="48" r="28" fill="none" stroke="#c9a96e" stroke-width="0.5" opacity="0.3" />
+  </g>
+
+  <line x1="340.0" y1="92" x2="460.0" y2="92" stroke="#c9a96e" stroke-width="0.5" opacity="0.6" />
+
+  <!-- Main title -->
+  <text x="400.0" y="135" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="42" font-weight="300" letter-spacing="0.35em"
+        fill="#1a1614">POSE &amp; SAY CHEESE</text>
+
+  <line x1="340.0" y1="152" x2="460.0" y2="152" stroke="#c9a96e" stroke-width="0.5" opacity="0.6" />
+
+  <!-- Subtitle -->
+  <text x="400.0" y="190" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="28" font-style="italic" font-weight="400" letter-spacing="0.3em"
+        fill="#c9a96e">Photography</text>
+
+  <!-- Tagline -->
+  <text x="400.0" y="235" text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="10" font-weight="400" letter-spacing="0.5em"
+        fill="#1a1614" opacity="0.5">ETTLINGEN &amp; KARLSRUHE</text>
+
+  <circle cx="380.0" cy="248" r="1" fill="#c9a96e" opacity="0.4" />
+  <circle cx="400.0" cy="248" r="1.2" fill="#c9a96e" opacity="0.6" />
+  <circle cx="420.0" cy="248" r="1" fill="#c9a96e" opacity="0.4" />
+</svg>

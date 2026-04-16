@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 50" width="360" height="50">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- Mini aperture -->
+  <g opacity="0.7">
+    <path d="M 18.0,11.0 Q 23.5,13.6 28.9,16.3 L 20.3,20.2 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 28.9,16.3 Q 30.3,22.2 31.6,28.1 L 23.2,23.8 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 31.6,28.1 Q 27.9,32.9 24.1,37.6 L 22.2,28.3 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 24.1,37.6 Q 18.0,37.6 11.9,37.6 L 18.0,30.3 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 11.9,37.6 Q 8.1,32.9 4.4,28.1 L 13.8,28.3 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 4.4,28.1 Q 5.7,22.2 7.1,16.3 L 12.8,23.8 Z" fill="#c9a96e" opacity="0.5" />
+    <path d="M 7.1,16.3 Q 12.5,13.6 18.0,11.0 L 15.7,20.2 Z" fill="#c9a96e" opacity="0.5" />
+    <circle cx="18" cy="25.0" r="14" fill="none" stroke="#c9a96e" stroke-width="0.5" opacity="0.4" />
+  </g>
+
+  <!-- Text -->
+  <text x="42" y="23"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="18" font-weight="300" letter-spacing="0.3em"
+        fill="currentColor">POSE &amp; SAY CHEESE</text>
+  <text x="42" y="40"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="12" font-style="italic" font-weight="400" letter-spacing="0.25em"
+        fill="#c9a96e">Photography</text>
+</svg>
