@@ -6,6 +6,18 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://pose-and-say-cheese.de',
   output: 'static',
+  redirects: {
+    '/about': '/ueber-mich',
+    '/about/': '/ueber-mich',
+    '/pricing': '/preise',
+    '/pricing/': '/preise',
+    '/new-born': '/',
+    '/new-born/': '/',
+    '/fashion': '/',
+    '/fashion/': '/',
+    '/family': '/',
+    '/family/': '/',
+  },
   vite: {
     plugins: [tailwindcss()],
   },
