@@ -1,43 +1,43 @@
 export const SEO = {
   home: {
-    title: 'Hochzeitsfotograf Karlsruhe & Ettlingen | Pose and Say Cheese Photography',
+    title: 'Fotograf Ettlingen & Karlsruhe — Hochzeit, Business Portraits | Pose and Say Cheese',
     description:
-      'Euer Hochzeitsfotograf in Karlsruhe und Ettlingen. Authentische, emotionale Hochzeitsfotos — echt statt perfekt. Eure schönsten Momente für immer festgehalten.',
+      'Fotograf in Ettlingen und Karlsruhe. Hochzeitsfotografie, Business Portraits und Bewerbungsfotos im Studio. Authentisch, modern, persönlich. Jetzt Termin anfragen.',
   },
   leistungen: {
-    title: 'Leistungen — Hochzeitsfotografie & Business Portraits | Pose and Say Cheese Photography',
+    title: 'Leistungen — Fotograf Ettlingen | Hochzeit & Business Portraits',
     description:
-      'Hochzeitsfotografie und professionelle Business Portraits in Karlsruhe und Ettlingen. Von Getting Ready bis zur Party — und Bewerbungsfotos im Studio.',
+      'Leistungen als Fotograf in Ettlingen: Hochzeitsfotografie, Bewerbungsfotos, Business Portraits, Fotoshootings im Studio und outdoor. Persönlich und authentisch.',
   },
   businessPortraits: {
-    title: 'Business Portraits & Bewerbungsfotos Ettlingen | Pose and Say Cheese Photography',
+    title: 'Bewerbungsfoto Ettlingen — Business Portraits im Fotostudio ab 89 €',
     description:
-      'Professionelle Business Portraits und Bewerbungsfotos in Ettlingen und Karlsruhe. Studio und Outdoor. Ab 89 €. Für LinkedIn, Bewerbungen und Firmenwebsites.',
+      'Bewerbungsfoto und Business Portrait in Ettlingen. Professionelles Fotostudio, schnelle Termine, Sonderpreise für Studenten. Ab 89 €. Jetzt online buchen.',
   },
   preise: {
-    title: 'Preise — Hochzeitsfotografie & Business Portraits | Pose and Say Cheese Photography',
+    title: 'Preise Fotograf Ettlingen — Hochzeit ab 890 € & Bewerbungsfoto ab 89 €',
     description:
-      'Transparente Preise für Hochzeitsfotografie und Business Portraits in Karlsruhe. Hochzeiten ab 890 €, Bewerbungsfotos ab 89 €.',
+      'Transparente Preise vom Fotograf in Ettlingen. Hochzeitsfotografie ab 890 €, Bewerbungsfotos ab 89 €, Business Portraits ab 189 €. Keine versteckten Kosten.',
   },
   galerie: {
-    title: 'Hochzeitsfotos Galerie | Pose and Say Cheese Photography Karlsruhe',
+    title: 'Galerie — Fotograf Ettlingen | Hochzeiten & Portraits',
     description:
-      'Lasst euch von meiner Hochzeitsfotografie-Galerie inspirieren. Emotionale Momente, liebevolle Details und authentische Hochzeitsbilder aus Karlsruhe.',
+      'Portfolio vom Fotograf in Ettlingen. Echte Hochzeitsmomente, Business Portraits und Fotoshootings aus dem Fotostudio und Raum Karlsruhe.',
   },
   ueberMich: {
-    title: 'Über mich — Hochzeitsfotografin Karlsruhe | Pose and Say Cheese Photography',
+    title: 'Über mich — Fotografin in Ettlingen | Pose and Say Cheese Photography',
     description:
-      'Lernt die Fotografin hinter Pose and Say Cheese Photography kennen. Leidenschaftliche Hochzeitsfotografie mit Herz in Karlsruhe und Ettlingen.',
+      'Lernt die Fotografin aus Ettlingen kennen. Fotografie mit Herz für Hochzeiten, Business Portraits und Bewerbungsfotos im Raum Karlsruhe.',
   },
   kontakt: {
-    title: 'Kontakt — Hochzeitsfotograf Karlsruhe | Pose and Say Cheese Photography',
+    title: 'Kontakt — Fotograf Ettlingen | Pose and Say Cheese Photography',
     description:
-      'Schreibt mir und erzählt von eurer Hochzeit. Pose and Say Cheese Photography — Hochzeitsfotografie in Karlsruhe und Ettlingen. Jetzt unverbindlich anfragen!',
+      'Schreibt mir und vereinbart einen Termin. Fotostudio in Ettlingen — für Hochzeiten, Bewerbungsfotos und Business Portraits im Raum Karlsruhe.',
   },
   faq: {
-    title: 'Häufige Fragen — Hochzeitsfotograf Karlsruhe | Pose and Say Cheese Photography',
+    title: 'Häufige Fragen — Fotograf Ettlingen | Pose and Say Cheese Photography',
     description:
-      'Antworten auf häufige Fragen zur Hochzeitsfotografie: Buchung, Ablauf, Bildlieferung und mehr. Pose and Say Cheese Photography Karlsruhe.',
+      'Antworten auf häufige Fragen zu Hochzeitsfotografie, Business Portraits und Bewerbungsfotos im Fotostudio Ettlingen.',
   },
   impressum: {
     title: 'Impressum | Pose and Say Cheese Photography',
