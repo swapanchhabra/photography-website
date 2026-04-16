@@ -5,6 +5,7 @@ import PricingCards from '../components/sections/PricingCards.astro';
 import CTABanner from '../components/sections/CTABanner.astro';
 import { SEO } from '../data/seo';
 import { PORTRAIT_PACKAGES } from '../data/packages';
+import { PORTRAIT_IMAGES } from '../data/portraits';
 import { breadcrumbSchema } from '../utils/schema';
 import { SITE } from '../utils/constants';
 
@@ -94,8 +95,38 @@ const schema = breadcrumbSchema([
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- Portfolio Gallery -->
   <section class="py-20 lg:py-28 bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center mb-16" data-animate>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl italic tracking-wide">Arbeiten</h2>
+        <p class="mt-4 text-neutral-500 max-w-2xl mx-auto">
+          Einblicke in meine Business Portraits und Bewerbungsfotos.
+        </p>
+      </div>
+
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        {PORTRAIT_IMAGES.map((img) => (
+          <div class="break-inside-avoid group overflow-hidden" data-animate>
+            <div class="relative overflow-hidden">
+              <img
+                src={img.src}
+                alt={img.alt}
+                width={img.width}
+                height={img.height}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="py-20 lg:py-28 bg-parchment">
     <div class="mx-auto max-w-6xl px-6">
       <div class="text-center mb-16" data-animate>
         <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl italic tracking-wide">Pakete & Preise</h2>
@@ -114,7 +145,7 @@ const schema = breadcrumbSchema([
   </section>
 
   <!-- Process -->
-  <section class="py-20 lg:py-28 bg-parchment">
+  <section class="py-20 lg:py-28 bg-neutral-50">
     <div class="mx-auto max-w-5xl px-6">
       <div class="text-center mb-16" data-animate>
         <h2 class="font-serif text-3xl sm:text-4xl italic tracking-wide">So läuft es ab</h2>
